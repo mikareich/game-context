@@ -16,7 +16,6 @@ const avatar = new GameObject({
 game.gameObjects.push(avatar);
 
 function gameloop() {
-  game.update();
   game.draw();
 }
 

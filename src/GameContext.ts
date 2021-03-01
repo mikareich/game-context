@@ -51,7 +51,7 @@ class GameContext {
    * Updates all gameObjects
    * @param updater Function to update each GameObject
    */
-  update(updater?: UpdaterFunction) {
+  update(updater: UpdaterFunction) {
     this.gameObjects.forEach((gameObject) => {
       if (typeof updater === "function") updater(gameObject, this);
     });
@@ -60,9 +60,10 @@ class GameContext {
   /**
    * Draws all gameObjects on the context (ctx)
    * @param drawer Function to draw each GameObject
+   * @param clearScreen Specifies whether the canvas should be emptied beforehand
    */
   draw(drawer?: DrawerFunction, clearScreen: boolean = true) {
-    this.ctx.clearRect(0, 0, this.width, this.height);
+    if (clearScreen) this.ctx.clearRect(0, 0, this.width, this.height);
     this.gameObjects.forEach((gameObject) => {
       const { x, y } = gameObject.position;
       const { width, height, background } = gameObject;
