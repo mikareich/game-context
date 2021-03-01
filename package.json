@@ -1,0 +1,26 @@
+{
+  "name": "space-defender",
+  "version": "1.0.0",
+  "description": "A small game, programmed in typescript. The goal of the game is to shoot down as many spaceships as possible with your spaceship and not get hit yourself.",
+  "main": "index.js",
+  "repository": "https://github.com/mikareich/space-defender.git",
+  "author": "Mika Reich <mikareich0@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.2"
+  }
+}
