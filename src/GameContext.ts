@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
+import CollisionDetector from "./CollisionDetector";
 import GameObject from "./GameObject";
 
 type UpdaterFunction = (gameObject: GameObject, game: GameContext) => void;
@@ -18,10 +19,20 @@ class GameContext {
 
   public height: number;
 
-  constructor(ctx: CanvasRenderingContext2D, width: number, height: number) {
+  private collisionDetector: CollisionDetector | null;
+
+  constructor(
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    withCollisionDetector: boolean = false
+  ) {
     this.ctx = ctx;
     this.width = width;
     this.height = height;
+
+    if (withCollisionDetector)
+      this.collisionDetector = new CollisionDetector([]);
 
     this.ctx.imageSmoothingEnabled = true;
     this.ctx.imageSmoothingQuality = "high";
@@ -48,6 +59,11 @@ class GameContext {
   }
 
   /**
+   * Adds Object
+   * @param updater
+   */
+
+  /**
    * Updates all gameObjects
    * @param updater Function to update each GameObject
    */
@@ -64,14 +80,15 @@ class GameContext {
    */
   draw(drawer?: DrawerFunction, clearScreen: boolean = true) {
     if (clearScreen) this.ctx.clearRect(0, 0, this.width, this.height);
+
     this.gameObjects.forEach((gameObject) => {
-      const { x, y } = gameObject.position;
+      const { x, y } = gameObject.getPosition();
       const { width, height, background } = gameObject;
 
       if (typeof drawer === "function") drawer(gameObject, this, this.ctx);
       else if (typeof background === "string") {
-        this.ctx.fillRect(x, y, width, height);
         this.ctx.fillStyle = <string>background;
+        this.ctx.fillRect(x, y, width, height);
       } else {
         this.ctx.drawImage(background, x, y, width, height);
       }
