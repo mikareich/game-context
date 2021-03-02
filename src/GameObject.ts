@@ -1,4 +1,6 @@
-import { ICoords } from "./constants";
+/* eslint-disable no-underscore-dangle */
+import { v4 } from "uuid";
+import { ICoords } from "./Constants";
 
 type CanvasImageSource =
   | HTMLImageElement
@@ -13,25 +15,28 @@ interface IGameObjectConfig {
   height: number;
   background?: string | CanvasImageSource;
   position?: ICoords;
+  name?: any;
 }
-
-type Listener = (GameObject, ...params: any[]) => void;
 
 interface EventListener {
   type: string;
-  listener: Listener;
+  listener: (GameObject, ...params: any[]) => void;
 }
 
-type EventTypes = "updateposition" | "draw";
+type EventTypes = "positionupdated" | "draw" | "collided";
 
 class GameObject {
+  public name: any;
+
   public width: number;
 
   public height: number;
 
-  private _position: ICoords;
-
   public background: string | CanvasImageSource;
+
+  private _uuid: string;
+
+  private _position: ICoords;
 
   private eventListeners: EventListener[] = [];
 
@@ -40,18 +45,25 @@ class GameObject {
     this.height = config.height;
     this._position = config.position;
     this.background = config.background || "black";
-    this.position = config.position || { x: 0, y: 0 };
+    this._position = config.position || { x: 0, y: 0 };
+    this.name = config.name;
+    this._uuid = v4();
   }
 
-  set position(newPosition: ICoords) {
-    this.triggerListener("updateposition", {
-      newPosition,
-      oldPosition: this.position,
-    });
-    this._position = newPosition;
+  get uuid() {
+    return this._uuid;
   }
 
-  get position() {
+  setPosition(x?: number, y?: number) {
+    if (typeof x === "number") this._position.x = x;
+    if (typeof y === "number") this._position.y = y;
+
+    if (typeof x === "number" || typeof y === "number") {
+      this.triggerListener("positionupdated");
+    }
+  }
+
+  getPosition() {
     return this._position;
   }
 

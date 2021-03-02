@@ -6,7 +6,7 @@ With the Game Context you develop games faster and more effectively. It lets you
 
 The Game Context consists of two main modules: the Game Context and the Game Object. The Game Context has the task to contain all created Game Objects and to render them if necessary. The Game Objects describe how objects behave and must be rendered.
 
-## Game Context
+## Game Context Module
 
 This module contains and manages all game objects and draws them on the canvas. It also provides a function that repeats the game loop at given time intervals.
 
@@ -49,5 +49,5 @@ The GameObject offers to listen for certain events. When an event is triggered, 
 
 ### Events
 
-- `updateposition`
+- `positionupdated`
 - `draw`
