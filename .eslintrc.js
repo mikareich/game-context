@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     "import/no-unresolved": "off",
     "import/extensions": "off",
+    "no-underscore-dangle": "off",
   },
 };

@@ -1,5 +1,5 @@
 import CollisionDetector from "./CollisionDetector";
-import GameContext from "./GameContext";
+import GameContext from "./Game";
 import GameObject from "./GameObject";
 
 const WIDTH = 800;

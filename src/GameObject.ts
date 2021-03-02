@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { v4 } from "uuid";
 import { ICoords } from "./Constants";
+import EventSystem from "./EventSystem";
 
 type CanvasImageSource =
   | HTMLImageElement
@@ -18,14 +19,7 @@ interface IGameObjectConfig {
   name?: any;
 }
 
-interface EventListener {
-  type: string;
-  listener: (GameObject, ...params: any[]) => void;
-}
-
-type EventTypes = "positionupdated" | "draw" | "collided";
-
-class GameObject {
+class GameObject extends EventSystem {
   public name: any;
 
   public width: number;
@@ -38,9 +32,8 @@ class GameObject {
 
   private _position: ICoords;
 
-  private eventListeners: EventListener[] = [];
-
   constructor(config: IGameObjectConfig) {
+    super();
     this.width = config.width;
     this.height = config.height;
     this._position = config.position;
@@ -59,23 +52,12 @@ class GameObject {
     if (typeof y === "number") this._position.y = y;
 
     if (typeof x === "number" || typeof y === "number") {
-      this.triggerListener("positionupdated");
+      this.triggerEvent("positionupdated");
     }
   }
 
   getPosition() {
     return this._position;
-  }
-
-  public triggerListener(type: EventTypes, ...params: any[]) {
-    // get listeners
-    const events = this.eventListeners.filter((event) => event.type === type);
-    // run listeners
-    events.forEach((event) => event.listener(this, ...params));
-  }
-
-  public addEventListener(type: EventTypes, listener: Listener) {
-    this.eventListeners.push({ type, listener });
   }
 }
 

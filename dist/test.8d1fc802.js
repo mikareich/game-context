@@ -212,7 +212,7 @@ function () {
 }();
 
 exports.default = CollisionDetector;
-},{}],"GameContext.ts":[function(require,module,exports) {
+},{}],"Game.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -230,15 +230,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var CollisionDetector_1 = __importDefault(require("./CollisionDetector"));
 
-var GameContext =
+var Game =
 /** @class */
 function () {
-  function GameContext(ctx, width, height, withCollisionDetector) {
+  function Game(ctx, width, height, withCollisionDetector) {
     if (withCollisionDetector === void 0) {
       withCollisionDetector = false;
     }
 
-    this.gameObjects = [];
+    this._gameObjects = [];
     this.ctx = ctx;
     this.width = width;
     this.height = height;
@@ -253,7 +253,7 @@ function () {
    */
 
 
-  GameContext.loop = function (gameLoop, fps) {
+  Game.loop = function (gameLoop, fps) {
     var lastTimestamp = 0;
 
     function newFrame(passedTime) {
@@ -270,20 +270,33 @@ function () {
     requestAnimationFrame(newFrame);
   };
   /**
-   * Adds Object
-   * @param updater
+   * Registers GameObject in GameContext
+   * @param gameObject Game object to register
    */
 
+
+  Game.prototype.addGameObject = function (gameObject) {
+    this._gameObjects.push(gameObject);
+  };
+  /**
+   *
+   * @returns All registered
+   */
+
+
+  Game.prototype.getGameObjects = function () {
+    return this._gameObjects;
+  };
   /**
    * Updates all gameObjects
    * @param updater Function to update each GameObject
    */
 
 
-  GameContext.prototype.update = function (updater) {
+  Game.prototype.update = function (updater) {
     var _this = this;
 
-    this.gameObjects.forEach(function (gameObject) {
+    this._gameObjects.forEach(function (gameObject) {
       if (typeof updater === "function") updater(gameObject, _this);
     });
   };
@@ -294,7 +307,7 @@ function () {
    */
 
 
-  GameContext.prototype.draw = function (drawer, clearScreen) {
+  Game.prototype.draw = function (drawer, clearScreen) {
     var _this = this;
 
     if (clearScreen === void 0) {
@@ -302,7 +315,8 @@ function () {
     }
 
     if (clearScreen) this.ctx.clearRect(0, 0, this.width, this.height);
-    this.gameObjects.forEach(function (gameObject) {
+
+    this._gameObjects.forEach(function (gameObject) {
       var _a = gameObject.getPosition(),
           x = _a.x,
           y = _a.y;
@@ -321,10 +335,10 @@ function () {
     });
   };
 
-  return GameContext;
+  return Game;
 }();
 
-exports.default = GameContext;
+exports.default = Game;
 },{"./CollisionDetector":"CollisionDetector.ts"}],"../node_modules/uuid/dist/esm-browser/rng.js":[function(require,module,exports) {
 "use strict";
 
@@ -1282,7 +1296,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var CollisionDetector_1 = __importDefault(require("./CollisionDetector"));
 
-var GameContext_1 = __importDefault(require("./GameContext"));
+var Game_1 = __importDefault(require("./Game"));
 
 var GameObject_1 = __importDefault(require("./GameObject"));
 
@@ -1309,13 +1323,13 @@ var object2 = new GameObject_1.default({
   name: "Object2",
   background: "red"
 });
-var game = new GameContext_1.default(ctx, WIDTH, HEIGHT);
+var game = new Game_1.default(ctx, WIDTH, HEIGHT);
 game.gameObjects.push(object1);
 game.gameObjects.push(object2);
 var collisionDetector = new CollisionDetector_1.default(game.gameObjects);
 object2.setPosition(2, 2);
 game.draw();
-},{"./CollisionDetector":"CollisionDetector.ts","./GameContext":"GameContext.ts","./GameObject":"GameObject.ts"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./CollisionDetector":"CollisionDetector.ts","./Game":"Game.ts","./GameObject":"GameObject.ts"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1343,7 +1357,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50035" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59357" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

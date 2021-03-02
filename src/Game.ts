@@ -3,17 +3,17 @@
 import CollisionDetector from "./CollisionDetector";
 import GameObject from "./GameObject";
 
-type UpdaterFunction = (gameObject: GameObject, game: GameContext) => void;
+type UpdaterFunction = (gameObject: GameObject, game: Game) => void;
 type DrawerFunction = (
   gameObject: GameObject,
-  game: GameContext,
+  game: Game,
   ctx: CanvasRenderingContext2D
 ) => void;
 
-class GameContext {
+class Game {
   private ctx: CanvasRenderingContext2D;
 
-  public gameObjects: GameObject[] = [];
+  private _gameObjects: GameObject[] = [];
 
   public width: number;
 
@@ -59,16 +59,27 @@ class GameContext {
   }
 
   /**
-   * Adds Object
-   * @param updater
+   * Registers GameObject in GameContext
+   * @param gameObject Game object to register
    */
+  addGameObject(gameObject: GameObject) {
+    this._gameObjects.push(gameObject);
+  }
+
+  /**
+   *
+   * @returns All registered
+   */
+  getGameObjects(): GameObject[] {
+    return this._gameObjects;
+  }
 
   /**
    * Updates all gameObjects
    * @param updater Function to update each GameObject
    */
   update(updater: UpdaterFunction) {
-    this.gameObjects.forEach((gameObject) => {
+    this._gameObjects.forEach((gameObject) => {
       if (typeof updater === "function") updater(gameObject, this);
     });
   }
@@ -81,7 +92,7 @@ class GameContext {
   draw(drawer?: DrawerFunction, clearScreen: boolean = true) {
     if (clearScreen) this.ctx.clearRect(0, 0, this.width, this.height);
 
-    this.gameObjects.forEach((gameObject) => {
+    this._gameObjects.forEach((gameObject) => {
       const { x, y } = gameObject.getPosition();
       const { width, height, background } = gameObject;
 
@@ -98,4 +109,4 @@ class GameContext {
   }
 }
 
-export default GameContext;
+export default Game;

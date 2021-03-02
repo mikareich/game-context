@@ -1,6 +1,7 @@
+import EventSystem from "./EventSystem";
 import GameObject from "./GameObject";
 
-class CollisionDetector {
+class CollisionDetector extends EventSystem {
   /**
    *  Examines the position of the objects for collision.
    * @param object1 First Object
@@ -53,21 +54,20 @@ class CollisionDetector {
   private objects: GameObject[];
 
   constructor(objects: GameObject[]) {
+    super();
     this.objects = objects;
 
     // add eventlistener
     this.objects.forEach((gameObject) => {
       this.objectUpdated(gameObject);
-      gameObject.addEventListener("positionupdated", () =>
-        this.objectUpdated(gameObject)
-      );
+      gameObject.on("positionupdated", () => this.objectUpdated(gameObject));
     });
   }
 
   addObject(gameObject: GameObject) {
     this.objects.push(gameObject);
     this.objectUpdated(gameObject);
-    gameObject.addEventListener("positionupdated", () => {
+    gameObject.on("positionupdated", () => {
       this.objectUpdated(gameObject);
     });
   }
@@ -82,10 +82,11 @@ class CollisionDetector {
 
     // trigger event-listeners
     if (withObjectCollided.length > 0) {
-      object.triggerListener("collided", withObjectCollided);
+      object.triggerEvent("collided", withObjectCollided);
       withObjectCollided.forEach((collidedCompareObject) =>
-        collidedCompareObject.triggerListener("collided", object)
+        collidedCompareObject.triggerEvent("collided", object)
       );
+      this.triggerEvent("objectscollided", object, withObjectCollided);
     }
   }
 }
