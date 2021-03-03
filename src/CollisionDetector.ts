@@ -66,11 +66,13 @@ class CollisionDetector extends EventSystem<EventTypes> {
     });
   }
 
-  addObject(gameObject: GameObject) {
+  addObjects(...gameObjects: GameObject[]) {
+    gameObjects.forEach((gameObject) => {
     this.objects.push(gameObject);
     this.objectUpdated(gameObject);
     gameObject.on("positionupdated", () => {
       this.objectUpdated(gameObject);
+    });
     });
   }
 
