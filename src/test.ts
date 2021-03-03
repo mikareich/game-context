@@ -1,4 +1,5 @@
 import CollisionDetector from "./CollisionDetector";
+import Game from "./Game";
 import GameContext from "./Game";
 import GameObject from "./GameObject";
 
@@ -21,18 +22,23 @@ const object1 = new GameObject({
 const object2 = new GameObject({
   width: 100,
   height: 100,
-  position: { x: 101, y: 101 },
+  position: { x: 200, y: 0 },
   name: "Object2",
   background: "red",
 });
 
 const game = new GameContext(ctx, WIDTH, HEIGHT);
 
-game.gameObjects.push(object1);
-game.gameObjects.push(object2);
+game.addGameObjects(object1, object2);
 
-const collisionDetector = new CollisionDetector(game.gameObjects);
+const collisionDetector = new CollisionDetector(game.getGameObjects());
 
-object2.setPosition(2, 2);
+game.expr;
 
-game.draw();
+const updater = () => {
+  const { x, y } = object2.getPosition();
+  object2.setPosition(x - 1, y);
+  game.draw();
+};
+
+Game.loop(updater, 100);
