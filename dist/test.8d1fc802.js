@@ -117,28 +117,117 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"CollisionDetector.ts":[function(require,module,exports) {
+})({"EventSystem.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var CollisionDetector =
+var EventSystem =
 /** @class */
 function () {
+  function EventSystem() {
+    this.registeredEventListeners = [];
+  }
+  /**
+   * Add an event listener for specific events
+   */
+
+
+  EventSystem.prototype.on = function (type, listener) {
+    this.registeredEventListeners.push({
+      type: type,
+      listener: listener
+    });
+  };
+  /**
+   * Triggers an event
+   */
+
+
+  EventSystem.prototype.triggerEvent = function (type) {
+    var params = [];
+
+    for (var _i = 1; _i < arguments.length; _i++) {
+      params[_i - 1] = arguments[_i];
+    }
+
+    var registeredEventListeners = this.registeredEventListeners.filter(function (event) {
+      return event.type === type;
+    }); // call callback functions
+
+    registeredEventListeners.forEach(function (event) {
+      return event.listener(params);
+    });
+  };
+
+  return EventSystem;
+}();
+
+exports.default = EventSystem;
+},{}],"CollisionDetector.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var EventSystem_1 = __importDefault(require("./EventSystem"));
+
+var CollisionDetector =
+/** @class */
+function (_super) {
+  __extends(CollisionDetector, _super);
+
   function CollisionDetector(objects) {
-    var _this = this;
+    var _this = _super.call(this) || this;
 
-    this.objects = objects; // add eventlistener
+    _this.objects = objects; // add eventlistener
 
-    this.objects.forEach(function (gameObject) {
+    _this.objects.forEach(function (gameObject) {
       _this.objectUpdated(gameObject);
 
-      gameObject.addEventListener("positionupdated", function () {
+      gameObject.on("positionupdated", function () {
         return _this.objectUpdated(gameObject);
       });
     });
+
+    return _this;
   }
   /**
    *  Examines the position of the objects for collision.
@@ -189,31 +278,43 @@ function () {
 
     this.objects.push(gameObject);
     this.objectUpdated(gameObject);
-    gameObject.addEventListener("positionupdated", function () {
+    gameObject.on("positionupdated", function () {
       _this.objectUpdated(gameObject);
     });
   };
 
   CollisionDetector.prototype.objectUpdated = function (object) {
     // compare object with all other objects
-    var withObjectCollided = this.objects.filter(function (compareObject) {
+    var collidedObjects = this.objects.filter(function (compareObject) {
       return object.uuid !== compareObject.uuid && CollisionDetector.hasCollided(object, compareObject);
+    }).map(function (compareObject) {
+      return [object, compareObject];
     }); // trigger event-listeners
 
-    if (withObjectCollided.length > 0) {
-      object.triggerListener("collided", withObjectCollided);
-      withObjectCollided.forEach(function (collidedCompareObject) {
-        return collidedCompareObject.triggerListener("collided", object);
+    if (collidedObjects.length > 0) {
+      object.triggerEvent("collided", collidedObjects);
+      collidedObjects.forEach(function (_a) {
+        var collidedCompareObject = _a[1];
+        return collidedCompareObject.triggerEvent("collided", object);
       });
+      this.triggerEvent("collisiondetected", collidedObjects);
     }
   };
 
   return CollisionDetector;
-}();
+}(EventSystem_1.default);
 
 exports.default = CollisionDetector;
-},{}],"Game.ts":[function(require,module,exports) {
+},{"./EventSystem":"EventSystem.ts"}],"Game.ts":[function(require,module,exports) {
 "use strict";
+
+var __spreadArray = this && this.__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) {
+    to[j] = from[i];
+  }
+
+  return to;
+};
 
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
@@ -270,16 +371,25 @@ function () {
     requestAnimationFrame(newFrame);
   };
   /**
-   * Registers GameObject in GameContext
-   * @param gameObject Game object to register
+   * Registers game objects in game
+   * @param gameObjects Game objects to register
    */
 
 
-  Game.prototype.addGameObject = function (gameObject) {
-    this._gameObjects.push(gameObject);
+  Game.prototype.addGameObjects = function () {
+    var _a;
+
+    var gameObjects = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      gameObjects[_i] = arguments[_i];
+    }
+
+    this._gameObjects = __spreadArray(__spreadArray([], this._gameObjects), gameObjects);
+    (_a = this.collisionDetector) === null || _a === void 0 ? void 0 : _a.addObject();
   };
   /**
-   *
+   * Returns all registered game objects
    * @returns All registered
    */
 
@@ -331,7 +441,7 @@ function () {
       } else {
         _this.ctx.drawImage(background, x, y, width, height);
       }
-      gameObject.triggerListener("draw");
+      gameObject.triggerEvent("draw");
     });
   };
 
@@ -1182,12 +1292,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 },{"./v1.js":"../node_modules/uuid/dist/esm-browser/v1.js","./v3.js":"../node_modules/uuid/dist/esm-browser/v3.js","./v4.js":"../node_modules/uuid/dist/esm-browser/v4.js","./v5.js":"../node_modules/uuid/dist/esm-browser/v5.js","./nil.js":"../node_modules/uuid/dist/esm-browser/nil.js","./version.js":"../node_modules/uuid/dist/esm-browser/version.js","./validate.js":"../node_modules/uuid/dist/esm-browser/validate.js","./stringify.js":"../node_modules/uuid/dist/esm-browser/stringify.js","./parse.js":"../node_modules/uuid/dist/esm-browser/parse.js"}],"GameObject.ts":[function(require,module,exports) {
 "use strict";
 
-var __spreadArray = this && this.__spreadArray || function (to, from) {
-  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) {
-    to[j] = from[i];
-  }
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      }
+    };
 
-  return to;
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
 };
 
 Object.defineProperty(exports, "__esModule", {
@@ -1197,21 +1333,27 @@ Object.defineProperty(exports, "__esModule", {
 
 var uuid_1 = require("uuid");
 
+var EventSystem_1 = __importDefault(require("./EventSystem"));
+
 var GameObject =
 /** @class */
-function () {
+function (_super) {
+  __extends(GameObject, _super);
+
   function GameObject(config) {
-    this.eventListeners = [];
-    this.width = config.width;
-    this.height = config.height;
-    this._position = config.position;
-    this.background = config.background || "black";
-    this._position = config.position || {
+    var _this = _super.call(this) || this;
+
+    _this.width = config.width;
+    _this.height = config.height;
+    _this._position = config.position;
+    _this.background = config.background || "black";
+    _this._position = config.position || {
       x: 0,
       y: 0
     };
-    this.name = config.name;
-    this._uuid = uuid_1.v4();
+    _this.name = config.name;
+    _this._uuid = uuid_1.v4();
+    return _this;
   }
 
   Object.defineProperty(GameObject.prototype, "uuid", {
@@ -1227,7 +1369,7 @@ function () {
     if (typeof y === "number") this._position.y = y;
 
     if (typeof x === "number" || typeof y === "number") {
-      this.triggerListener("positionupdated");
+      this.triggerEvent("positionupdated");
     }
   };
 
@@ -1235,37 +1377,11 @@ function () {
     return this._position;
   };
 
-  GameObject.prototype.triggerListener = function (type) {
-    var _this = this;
-
-    var params = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      params[_i - 1] = arguments[_i];
-    } // get listeners
-
-
-    var events = this.eventListeners.filter(function (event) {
-      return event.type === type;
-    }); // run listeners
-
-    events.forEach(function (event) {
-      return event.listener.apply(event, __spreadArray([_this], params));
-    });
-  };
-
-  GameObject.prototype.addEventListener = function (type, listener) {
-    this.eventListeners.push({
-      type: type,
-      listener: listener
-    });
-  };
-
   return GameObject;
-}();
+}(EventSystem_1.default);
 
 exports.default = GameObject;
-},{"uuid":"../node_modules/uuid/dist/esm-browser/index.js"}],"test.ts":[function(require,module,exports) {
+},{"uuid":"../node_modules/uuid/dist/esm-browser/index.js","./EventSystem":"EventSystem.ts"}],"test.ts":[function(require,module,exports) {
 "use strict";
 
 var __assign = this && this.__assign || function () {
@@ -1298,6 +1414,8 @@ var CollisionDetector_1 = __importDefault(require("./CollisionDetector"));
 
 var Game_1 = __importDefault(require("./Game"));
 
+var Game_2 = __importDefault(require("./Game"));
+
 var GameObject_1 = __importDefault(require("./GameObject"));
 
 var WIDTH = 800;
@@ -1317,18 +1435,27 @@ var object2 = new GameObject_1.default({
   width: 100,
   height: 100,
   position: {
-    x: 101,
-    y: 101
+    x: 200,
+    y: 0
   },
   name: "Object2",
   background: "red"
 });
-var game = new Game_1.default(ctx, WIDTH, HEIGHT);
-game.gameObjects.push(object1);
-game.gameObjects.push(object2);
-var collisionDetector = new CollisionDetector_1.default(game.gameObjects);
-object2.setPosition(2, 2);
-game.draw();
+var game = new Game_2.default(ctx, WIDTH, HEIGHT);
+game.addGameObjects(object1, object2);
+var collisionDetector = new CollisionDetector_1.default(game.getGameObjects());
+game.expr;
+
+var updater = function updater() {
+  var _a = object2.getPosition(),
+      x = _a.x,
+      y = _a.y;
+
+  object2.setPosition(x - 1, y);
+  game.draw();
+};
+
+Game_1.default.loop(updater, 100);
 },{"./CollisionDetector":"CollisionDetector.ts","./Game":"Game.ts","./GameObject":"GameObject.ts"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -1357,7 +1484,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59357" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54294" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

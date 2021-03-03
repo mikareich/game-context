@@ -59,15 +59,16 @@ class Game {
   }
 
   /**
-   * Registers GameObject in GameContext
-   * @param gameObject Game object to register
+   * Registers game objects in game
+   * @param gameObjects Game objects to register
    */
-  addGameObject(gameObject: GameObject) {
-    this._gameObjects.push(gameObject);
+  addGameObjects(...gameObjects: GameObject[]) {
+    this._gameObjects = [...this._gameObjects, ...gameObjects];
+    this.collisionDetector?.addObject();
   }
 
   /**
-   *
+   * Returns all registered game objects
    * @returns All registered
    */
   getGameObjects(): GameObject[] {
@@ -104,7 +105,7 @@ class Game {
         this.ctx.drawImage(background, x, y, width, height);
       }
 
-      gameObject.triggerListener("draw");
+      gameObject.triggerEvent("draw");
     });
   }
 }

@@ -1,7 +1,9 @@
 import EventSystem from "./EventSystem";
 import GameObject from "./GameObject";
 
-class CollisionDetector extends EventSystem {
+type EventTypes = "collisiondetected";
+
+class CollisionDetector extends EventSystem<EventTypes> {
   /**
    *  Examines the position of the objects for collision.
    * @param object1 First Object
@@ -74,19 +76,21 @@ class CollisionDetector extends EventSystem {
 
   private objectUpdated(object: GameObject) {
     // compare object with all other objects
-    const withObjectCollided = this.objects.filter(
-      (compareObject) =>
-        object.uuid !== compareObject.uuid &&
-        CollisionDetector.hasCollided(object, compareObject)
-    );
+    const collidedObjects = this.objects
+      .filter(
+        (compareObject) =>
+          object.uuid !== compareObject.uuid &&
+          CollisionDetector.hasCollided(object, compareObject)
+      )
+      .map((compareObject) => [object, compareObject]);
 
     // trigger event-listeners
-    if (withObjectCollided.length > 0) {
-      object.triggerEvent("collided", withObjectCollided);
-      withObjectCollided.forEach((collidedCompareObject) =>
+    if (collidedObjects.length > 0) {
+      object.triggerEvent("collided", collidedObjects);
+      collidedObjects.forEach(([, collidedCompareObject]) =>
         collidedCompareObject.triggerEvent("collided", object)
       );
-      this.triggerEvent("objectscollided", object, withObjectCollided);
+      this.triggerEvent("collisiondetected", collidedObjects);
     }
   }
 }

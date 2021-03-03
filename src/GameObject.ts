@@ -19,7 +19,9 @@ interface IGameObjectConfig {
   name?: any;
 }
 
-class GameObject extends EventSystem {
+type EventTypes = "positionupdated" | "draw" | "collided";
+
+class GameObject extends EventSystem<EventTypes> {
   public name: any;
 
   public width: number;
