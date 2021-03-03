@@ -39,7 +39,7 @@ class Game {
   }
 
   /**
-   * Calls gameloop regularly to change game progress
+   * Calls `gameloop` regularly to change game progress
    * @param gameLoop Loopfunction
    * @param fps Loops per second
    */
@@ -76,8 +76,8 @@ class Game {
   }
 
   /**
-   * Updates all gameObjects
-   * @param updater Function to update each GameObject
+   * Updates all game objects
+   * @param updater Function to update each game object
    */
   update(updater: UpdaterFunction) {
     this._gameObjects.forEach((gameObject) => {
@@ -86,8 +86,8 @@ class Game {
   }
 
   /**
-   * Draws all gameObjects on the context (ctx)
-   * @param drawer Function to draw each GameObject
+   * Draws all game objects on the context (ctx)
+   * @param drawer Function to draw each game object
    * @param clearScreen Specifies whether the canvas should be emptied beforehand
    */
   draw(drawer?: DrawerFunction, clearScreen: boolean = true) {
