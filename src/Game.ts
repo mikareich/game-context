@@ -64,7 +64,7 @@ class Game {
    */
   addGameObjects(...gameObjects: GameObject[]) {
     this._gameObjects = [...this._gameObjects, ...gameObjects];
-    this.collisionDetector?.addObject();
+    this.collisionDetector?.addObjects(...gameObjects);
   }
 
   /**

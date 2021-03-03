@@ -406,7 +406,7 @@ function () {
     }
 
     this._gameObjects = __spreadArray(__spreadArray([], this._gameObjects), gameObjects);
-    (_a = this.collisionDetector) === null || _a === void 0 ? void 0 : _a.addObject();
+    (_a = this.collisionDetector) === null || _a === void 0 ? void 0 : _a.addObjects.apply(_a, gameObjects);
   };
   /**
    * Returns all registered game objects
