@@ -377,7 +377,7 @@ var Game =
 function () {
   function Game(ctx, width, height, withCollisionDetector) {
     if (withCollisionDetector === void 0) {
-      withCollisionDetector = false;
+      withCollisionDetector = true;
     }
 
     this._gameObjects = [];
@@ -438,6 +438,8 @@ function () {
   Game.prototype.removeObjects = function () {
     var _this = this;
 
+    var _a;
+
     var gameObjects = [];
 
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -449,6 +451,7 @@ function () {
 
       _this._gameObjects.splice(index, 1);
     });
+    (_a = this.collisionDetector) === null || _a === void 0 ? void 0 : _a.removeObjects.apply(_a, gameObjects);
   };
   /**
    * Returns all registered game objects
@@ -1521,9 +1524,9 @@ var object2 = new GameObject_1.default({
     name: "ho"
   }
 });
-var game = new Game_1.default(ctx, WIDTH, HEIGHT);
+var game = new Game_1.default(ctx, WIDTH, HEIGHT, true);
 game.addGameObjects(object1, object2);
-game.removeObjects(object1, object2);
+object1.on("collision", console.log);
 
 var updater = function updater() {
   var _a = object2.getPosition(),

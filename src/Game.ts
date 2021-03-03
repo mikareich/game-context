@@ -25,7 +25,7 @@ class Game {
     ctx: CanvasRenderingContext2D,
     width: number,
     height: number,
-    withCollisionDetector: boolean = false
+    withCollisionDetector: boolean = true
   ) {
     this.ctx = ctx;
     this.width = width;
@@ -76,6 +76,7 @@ class Game {
       const index = this.getGameObjects().indexOf(gameObject);
       this._gameObjects.splice(index, 1);
     });
+    this.collisionDetector?.removeObjects(...gameObjects);
   }
 
   /**

@@ -29,11 +29,11 @@ const object2 = new GameObject({
   },
 });
 
-const game = new Game(ctx, WIDTH, HEIGHT);
+const game = new Game(ctx, WIDTH, HEIGHT, true);
 
 game.addGameObjects(object1, object2);
 
-game.removeObjects(object1, object2);
+object1.on("collision", console.log);
 
 const updater = () => {
   const { x, y } = object2.getPosition();
