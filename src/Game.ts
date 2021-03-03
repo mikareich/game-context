@@ -68,6 +68,17 @@ class Game {
   }
 
   /**
+   * Unregister game objects in game
+   * @param gameObjects Game objects to unregister
+   */
+  removeObjects(...gameObjects: GameObject[]) {
+    gameObjects.forEach((gameObject) => {
+      const index = this.getGameObjects().indexOf(gameObject);
+      this._gameObjects.splice(index, 1);
+    });
+  }
+
+  /**
    * Returns all registered game objects
    * @returns All registered
    */

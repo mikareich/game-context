@@ -217,9 +217,9 @@ function (_super) {
   function CollisionDetector(objects) {
     var _this = _super.call(this) || this;
 
-    _this.objects = objects; // add eventlistener
+    _this.gameObjects = objects; // add eventlistener
 
-    _this.objects.forEach(function (gameObject) {
+    _this.gameObjects.forEach(function (gameObject) {
       _this.objectUpdated(gameObject);
 
       gameObject.on("newposition", function () {
@@ -288,13 +288,34 @@ function (_super) {
     }
 
     gameObjects.forEach(function (gameObject) {
-      _this.objects.push(gameObject);
+      _this.gameObjects.push(gameObject);
 
       _this.objectUpdated(gameObject);
 
       gameObject.on("newposition", function () {
         _this.objectUpdated(gameObject);
       });
+    });
+  };
+  /**
+   * Removes game objects from the collison detector that no longer need to be inspected.
+   * @param gameObjects Game objects to unregister
+   */
+
+
+  CollisionDetector.prototype.removeObjects = function () {
+    var _this = this;
+
+    var gameObjects = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      gameObjects[_i] = arguments[_i];
+    }
+
+    gameObjects.forEach(function (gameObject) {
+      var index = _this.gameObjects.indexOf(gameObject);
+
+      _this.gameObjects.splice(index, 1);
     });
   };
   /**
@@ -305,7 +326,7 @@ function (_super) {
 
   CollisionDetector.prototype.objectUpdated = function (gameObject) {
     // compare object with all other objects
-    var collidedGameObjects = this.objects.filter(function (compareObject) {
+    var collidedGameObjects = this.gameObjects.filter(function (compareObject) {
       return gameObject.uuid !== compareObject.uuid && CollisionDetector.hasCollided(gameObject, compareObject);
     }).map(function (compareObject) {
       return [gameObject, compareObject];
@@ -407,6 +428,27 @@ function () {
 
     this._gameObjects = __spreadArray(__spreadArray([], this._gameObjects), gameObjects);
     (_a = this.collisionDetector) === null || _a === void 0 ? void 0 : _a.addObjects.apply(_a, gameObjects);
+  };
+  /**
+   * Unregister game objects in game
+   * @param gameObjects Game objects to unregister
+   */
+
+
+  Game.prototype.removeObjects = function () {
+    var _this = this;
+
+    var gameObjects = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      gameObjects[_i] = arguments[_i];
+    }
+
+    gameObjects.forEach(function (gameObject) {
+      var index = _this.getGameObjects().indexOf(gameObject);
+
+      _this._gameObjects.splice(index, 1);
+    });
   };
   /**
    * Returns all registered game objects
@@ -1481,6 +1523,7 @@ var object2 = new GameObject_1.default({
 });
 var game = new Game_1.default(ctx, WIDTH, HEIGHT);
 game.addGameObjects(object1, object2);
+game.removeObjects(object1, object2);
 
 var updater = function updater() {
   var _a = object2.getPosition(),

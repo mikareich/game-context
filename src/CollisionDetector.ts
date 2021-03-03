@@ -53,14 +53,14 @@ class CollisionDetector extends EventSystem<EventTypes> {
     return horizontalCondition && verticalCondition;
   }
 
-  private objects: GameObject[];
+  private gameObjects: GameObject[];
 
   constructor(objects: GameObject[]) {
     super();
-    this.objects = objects;
+    this.gameObjects = objects;
 
     // add eventlistener
-    this.objects.forEach((gameObject) => {
+    this.gameObjects.forEach((gameObject) => {
       this.objectUpdated(gameObject);
       gameObject.on("newposition", () => this.objectUpdated(gameObject));
     });
@@ -72,11 +72,22 @@ class CollisionDetector extends EventSystem<EventTypes> {
    */
   addObjects(...gameObjects: GameObject[]) {
     gameObjects.forEach((gameObject) => {
-      this.objects.push(gameObject);
+      this.gameObjects.push(gameObject);
       this.objectUpdated(gameObject);
       gameObject.on("newposition", () => {
         this.objectUpdated(gameObject);
       });
+    });
+  }
+
+  /**
+   * Removes game objects from the collison detector that no longer need to be inspected.
+   * @param gameObjects Game objects to unregister
+   */
+  removeObjects(...gameObjects: GameObject[]) {
+    gameObjects.forEach((gameObject) => {
+      const index = this.gameObjects.indexOf(gameObject);
+      this.gameObjects.splice(index, 1);
     });
   }
 
@@ -86,7 +97,7 @@ class CollisionDetector extends EventSystem<EventTypes> {
    */
   private objectUpdated(gameObject: GameObject) {
     // compare object with all other objects
-    const collidedGameObjects = this.objects
+    const collidedGameObjects = this.gameObjects
       .filter(
         (compareObject) =>
           gameObject.uuid !== compareObject.uuid &&

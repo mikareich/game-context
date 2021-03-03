@@ -33,6 +33,8 @@ const game = new Game(ctx, WIDTH, HEIGHT);
 
 game.addGameObjects(object1, object2);
 
+game.removeObjects(object1, object2);
+
 const updater = () => {
   const { x, y } = object2.getPosition();
   object2.setPosition(x - 1, y);
