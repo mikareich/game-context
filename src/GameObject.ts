@@ -34,6 +34,10 @@ class GameObject extends EventSystem<EventTypes> {
 
   private _position: ICoords;
 
+  /**
+   * Represents an object in the game and describes how it behaves.
+   * @param config Configuration of game object
+   */
   constructor(config: IGameObjectConfig) {
     super();
     this.width = config.width;
@@ -45,10 +49,18 @@ class GameObject extends EventSystem<EventTypes> {
     this._uuid = v4();
   }
 
+  /**
+   * Enables unique identification
+   */
   get uuid() {
     return this._uuid;
   }
 
+  /**
+   * Assigns a new position to the object
+   * @param x New x-coord
+   * @param y New y-coord
+   */
   setPosition(x?: number, y?: number) {
     if (typeof x === "number") this._position.x = x;
     if (typeof y === "number") this._position.y = y;
@@ -58,6 +70,10 @@ class GameObject extends EventSystem<EventTypes> {
     }
   }
 
+  /**
+   * Returns current position
+   * @returns Current position
+   */
   getPosition() {
     return this._position;
   }

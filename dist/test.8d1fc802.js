@@ -368,7 +368,7 @@ function () {
     this.ctx.imageSmoothingQuality = "high";
   }
   /**
-   * Calls gameloop regularly to change game progress
+   * Calls `gameloop` regularly to change game progress
    * @param gameLoop Loopfunction
    * @param fps Loops per second
    */
@@ -418,8 +418,8 @@ function () {
     return this._gameObjects;
   };
   /**
-   * Updates all gameObjects
-   * @param updater Function to update each GameObject
+   * Updates all game objects
+   * @param updater Function to update each game object
    */
 
 
@@ -431,8 +431,8 @@ function () {
     });
   };
   /**
-   * Draws all gameObjects on the context (ctx)
-   * @param drawer Function to draw each GameObject
+   * Draws all game objects on the context (ctx)
+   * @param drawer Function to draw each game object
    * @param clearScreen Specifies whether the canvas should be emptied beforehand
    */
 
@@ -1359,6 +1359,11 @@ var GameObject =
 /** @class */
 function (_super) {
   __extends(GameObject, _super);
+  /**
+   * Represents an object in the game and describes how it behaves.
+   * @param config Configuration of game object
+   */
+
 
   function GameObject(config) {
     var _this = _super.call(this) || this;
@@ -1377,12 +1382,20 @@ function (_super) {
   }
 
   Object.defineProperty(GameObject.prototype, "uuid", {
+    /**
+     * Enables unique identification
+     */
     get: function get() {
       return this._uuid;
     },
     enumerable: false,
     configurable: true
   });
+  /**
+   * Assigns a new position to the object
+   * @param x New x-coord
+   * @param y New y-coord
+   */
 
   GameObject.prototype.setPosition = function (x, y) {
     if (typeof x === "number") this._position.x = x;
@@ -1392,6 +1405,11 @@ function (_super) {
       this.triggerEvent("positionupdated");
     }
   };
+  /**
+   * Returns current position
+   * @returns Current position
+   */
+
 
   GameObject.prototype.getPosition = function () {
     return this._position;
