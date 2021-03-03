@@ -29,7 +29,7 @@ const object2 = new GameObject({
   },
 });
 
-const game = new Game(ctx, WIDTH, HEIGHT, true);
+const game = new Game(ctx, WIDTH, HEIGHT);
 
 game.addGameObjects(object1, object2);
 

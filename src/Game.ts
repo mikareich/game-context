@@ -21,6 +21,13 @@ class Game {
 
   private collisionDetector: CollisionDetector | null;
 
+  /**
+   *
+   * @param ctx CanvasRenderingContext.
+   * @param width Width of the game screen.
+   * @param height Height of the game screen.
+   * @param withCollisionDetector Indicates whether collisions of game objects should be detected.
+   */
   constructor(
     ctx: CanvasRenderingContext2D,
     width: number,
@@ -39,9 +46,9 @@ class Game {
   }
 
   /**
-   * Calls `gameloop` regularly to change game progress
-   * @param gameLoop Loopfunction
-   * @param fps Loops per second
+   * Calls `gameloop` regularly to change game progress.
+   * @param gameLoop Loopfunction.
+   * @param fps Loops per second.
    */
   static loop(gameLoop: CallableFunction, fps: number) {
     let lastTimestamp = 0;
@@ -59,8 +66,8 @@ class Game {
   }
 
   /**
-   * Registers game objects in game
-   * @param gameObjects Game objects to register
+   * Registers game objects in game.
+   * @param gameObjects Game objects to register.
    */
   addGameObjects(...gameObjects: GameObject[]) {
     this._gameObjects = [...this._gameObjects, ...gameObjects];
@@ -68,8 +75,8 @@ class Game {
   }
 
   /**
-   * Unregister game objects in game
-   * @param gameObjects Game objects to unregister
+   * Unregister game objects in game.
+   * @param gameObjects Game objects to unregister.
    */
   removeObjects(...gameObjects: GameObject[]) {
     gameObjects.forEach((gameObject) => {
@@ -80,16 +87,16 @@ class Game {
   }
 
   /**
-   * Returns all registered game objects
-   * @returns All registered
+   * Returns all registered game objects.
+   * @returns All registered game objects.
    */
   getGameObjects(): GameObject[] {
     return this._gameObjects;
   }
 
   /**
-   * Updates all game objects
-   * @param updater Function to update each game object
+   * Updates all game objects.
+   * @param updater Function to update each game object.
    */
   update(updater: UpdaterFunction) {
     this._gameObjects.forEach((gameObject) => {
@@ -98,9 +105,9 @@ class Game {
   }
 
   /**
-   * Draws all game objects on the context (ctx)
-   * @param drawer Function to draw each game object
-   * @param clearScreen Specifies whether the canvas should be emptied beforehand
+   * Draws all game objects on the context (ctx).
+   * @param drawer Function to draw each game object.
+   * @param clearScreen Specifies whether the canvas should be emptied beforehand.
    */
   draw(drawer?: DrawerFunction, clearScreen: boolean = true) {
     if (clearScreen) this.ctx.clearRect(0, 0, this.width, this.height);

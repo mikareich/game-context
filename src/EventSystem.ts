@@ -1,7 +1,7 @@
-type TListener = (...params: any[]) => void;
+type EventListener = (...params: any[]) => void;
 interface IEventListeners<EventType> {
   type: EventType;
-  listener: TListener;
+  listener: EventListener;
 }
 class EventSystem<EventType> {
   private registeredEventListeners: IEventListeners<EventType>[] = [];
@@ -9,16 +9,20 @@ class EventSystem<EventType> {
   public eventType: string;
 
   /**
-   * Add an event listener for specific events
+   * Add an event listener for specific events.
+   * @param type Type of event to be listen to.
+   * @param listener Function to execute when event is triggerd.
    */
-  on(type: EventType, listener: TListener) {
+  public on(type: EventType, listener: EventListener) {
     this.registeredEventListeners.push({ type, listener });
   }
 
   /**
-   * Triggers an event
+   * Triggers an event.
+   * @param type Type of event to trigger.
+   * @param params Additional parameters to pass to the listener.
    */
-  triggerEvent(type: EventType, ...params: any[]) {
+  public triggerEvent(type: EventType, ...params: any[]) {
     const registeredEventListeners = this.registeredEventListeners.filter(
       (event) => event.type === type
     );
