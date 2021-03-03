@@ -1,7 +1,7 @@
 import EventSystem from "./EventSystem";
 import GameObject from "./GameObject";
 
-type EventTypes = "collisiondetected";
+type EventTypes = "collision";
 
 class CollisionDetector extends EventSystem<EventTypes> {
   /**
@@ -62,7 +62,7 @@ class CollisionDetector extends EventSystem<EventTypes> {
     // add eventlistener
     this.objects.forEach((gameObject) => {
       this.objectUpdated(gameObject);
-      gameObject.on("positionupdated", () => this.objectUpdated(gameObject));
+      gameObject.on("newposition", () => this.objectUpdated(gameObject));
     });
   }
 
@@ -74,7 +74,7 @@ class CollisionDetector extends EventSystem<EventTypes> {
     gameObjects.forEach((gameObject) => {
       this.objects.push(gameObject);
       this.objectUpdated(gameObject);
-      gameObject.on("positionupdated", () => {
+      gameObject.on("newposition", () => {
         this.objectUpdated(gameObject);
       });
     });
@@ -96,11 +96,11 @@ class CollisionDetector extends EventSystem<EventTypes> {
 
     // trigger event-listeners
     if (collidedGameObjects.length > 0) {
-      gameObject.triggerEvent("collided", collidedGameObjects);
+      gameObject.triggerEvent("collision", collidedGameObjects);
       collidedGameObjects.forEach(([, collidedCompareObject]) =>
-        collidedCompareObject.triggerEvent("collided", gameObject)
+        collidedCompareObject.triggerEvent("collision", gameObject)
       );
-      this.triggerEvent("collisiondetected", collidedGameObjects);
+      this.triggerEvent("collision", collidedGameObjects);
     }
   }
 }

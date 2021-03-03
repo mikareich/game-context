@@ -19,7 +19,7 @@ interface IGameObjectConfig {
   name?: any;
 }
 
-type EventTypes = "positionupdated" | "draw" | "collided";
+type EventTypes = "newposition" | "draw" | "collision";
 
 class GameObject extends EventSystem<EventTypes> {
   public name: any;
@@ -66,7 +66,7 @@ class GameObject extends EventSystem<EventTypes> {
     if (typeof y === "number") this._position.y = y;
 
     if (typeof x === "number" || typeof y === "number") {
-      this.triggerEvent("positionupdated");
+      this.triggerEvent("newposition");
     }
   }
 

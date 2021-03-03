@@ -222,7 +222,7 @@ function (_super) {
     _this.objects.forEach(function (gameObject) {
       _this.objectUpdated(gameObject);
 
-      gameObject.on("positionupdated", function () {
+      gameObject.on("newposition", function () {
         return _this.objectUpdated(gameObject);
       });
     });
@@ -292,7 +292,7 @@ function (_super) {
 
       _this.objectUpdated(gameObject);
 
-      gameObject.on("positionupdated", function () {
+      gameObject.on("newposition", function () {
         _this.objectUpdated(gameObject);
       });
     });
@@ -312,12 +312,12 @@ function (_super) {
     }); // trigger event-listeners
 
     if (collidedGameObjects.length > 0) {
-      gameObject.triggerEvent("collided", collidedGameObjects);
+      gameObject.triggerEvent("collision", collidedGameObjects);
       collidedGameObjects.forEach(function (_a) {
         var collidedCompareObject = _a[1];
-        return collidedCompareObject.triggerEvent("collided", gameObject);
+        return collidedCompareObject.triggerEvent("collision", gameObject);
       });
-      this.triggerEvent("collisiondetected", collidedGameObjects);
+      this.triggerEvent("collision", collidedGameObjects);
     }
   };
 
@@ -1402,7 +1402,7 @@ function (_super) {
     if (typeof y === "number") this._position.y = y;
 
     if (typeof x === "number" || typeof y === "number") {
-      this.triggerEvent("positionupdated");
+      this.triggerEvent("newposition");
     }
   };
   /**
@@ -1448,11 +1448,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var CollisionDetector_1 = __importDefault(require("./CollisionDetector"));
-
 var Game_1 = __importDefault(require("./Game"));
-
-var Game_2 = __importDefault(require("./Game"));
 
 var GameObject_1 = __importDefault(require("./GameObject"));
 
@@ -1479,10 +1475,8 @@ var object2 = new GameObject_1.default({
   name: "Object2",
   background: "red"
 });
-var game = new Game_2.default(ctx, WIDTH, HEIGHT);
+var game = new Game_1.default(ctx, WIDTH, HEIGHT);
 game.addGameObjects(object1, object2);
-var collisionDetector = new CollisionDetector_1.default(game.getGameObjects());
-game.expr;
 
 var updater = function updater() {
   var _a = object2.getPosition(),
@@ -1494,7 +1488,7 @@ var updater = function updater() {
 };
 
 Game_1.default.loop(updater, 100);
-},{"./CollisionDetector":"CollisionDetector.ts","./Game":"Game.ts","./GameObject":"GameObject.ts"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./Game":"Game.ts","./GameObject":"GameObject.ts"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1522,7 +1516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54294" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58940" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

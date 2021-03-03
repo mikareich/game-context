@@ -1,1 +1,2048 @@
-{"id":"GameObject.ts","dependencies":[{"name":"/Users/mikareich/Documents/GitHub/space-defender/package.json","includedInParent":true,"mtime":1614698243734},{"name":"uuid","loc":{"line":9,"column":21},"parent":"/Users/mikareich/Documents/GitHub/space-defender/src/GameObject.ts","resolved":"/Users/mikareich/Documents/GitHub/space-defender/node_modules/uuid/dist/esm-browser/index.js"}],"generated":{"js":"\"use strict\";\n\nvar __spreadArray = this && this.__spreadArray || function (to, from) {\n  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) {\n    to[j] = from[i];\n  }\n\n  return to;\n};\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n/* eslint-disable no-underscore-dangle */\n\nvar uuid_1 = require(\"uuid\");\n\nvar GameObject =\n/** @class */\nfunction () {\n  function GameObject(config) {\n    this.eventListeners = [];\n    this.width = config.width;\n    this.height = config.height;\n    this._position = config.position;\n    this.background = config.background || \"black\";\n    this._position = config.position || {\n      x: 0,\n      y: 0\n    };\n    this.name = config.name;\n    this._uuid = uuid_1.v4();\n  }\n\n  Object.defineProperty(GameObject.prototype, \"uuid\", {\n    get: function get() {\n      return this._uuid;\n    },\n    enumerable: false,\n    configurable: true\n  });\n\n  GameObject.prototype.setPosition = function (x, y) {\n    if (typeof x === \"number\") this._position.x = x;\n    if (typeof y === \"number\") this._position.y = y;\n\n    if (typeof x === \"number\" || typeof y === \"number\") {\n      this.triggerListener(\"positionupdated\");\n    }\n  };\n\n  GameObject.prototype.getPosition = function () {\n    return this._position;\n  };\n\n  GameObject.prototype.triggerListener = function (type) {\n    var _this = this;\n\n    var params = [];\n\n    for (var _i = 1; _i < arguments.length; _i++) {\n      params[_i - 1] = arguments[_i];\n    } // get listeners\n\n\n    var events = this.eventListeners.filter(function (event) {\n      return event.type === type;\n    }); // run listeners\n\n    events.forEach(function (event) {\n      return event.listener.apply(event, __spreadArray([_this], params));\n    });\n  };\n\n  GameObject.prototype.addEventListener = function (type, listener) {\n    this.eventListeners.push({\n      type: type,\n      listener: listener\n    });\n  };\n\n  return GameObject;\n}();\n\nexports.default = GameObject;"},"sourceMaps":{"js":{"mappings":[{"source":"GameObject.ts","name":null,"original":{"line":1,"column":0},"generated":{"line":14,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":2,"column":0},"generated":{"line":16,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":2,"column":0},"generated":{"line":16,"column":4}},{"source":"GameObject.ts","name":null,"original":{"line":2,"column":0},"generated":{"line":16,"column":10}},{"source":"GameObject.ts","name":null,"original":{"line":2,"column":0},"generated":{"line":16,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":2,"column":0},"generated":{"line":16,"column":20}},{"source":"GameObject.ts","name":null,"original":{"line":2,"column":0},"generated":{"line":16,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":2,"column":0},"generated":{"line":16,"column":27}},{"source":"GameObject.ts","name":null,"original":{"line":2,"column":0},"generated":{"line":16,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":18,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":18,"column":4}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":18,"column":14}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":19,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":20,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":20,"column":12}},{"source":"GameObject.ts","name":null,"original":{"line":43,"column":2},"generated":{"line":21,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":43,"column":2},"generated":{"line":21,"column":11}},{"source":"GameObject.ts","name":null,"original":{"line":43,"column":2},"generated":{"line":21,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":43,"column":14},"generated":{"line":21,"column":22}},{"source":"GameObject.ts","name":null,"original":{"line":43,"column":2},"generated":{"line":21,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":43,"column":39},"generated":{"line":21,"column":30}},{"source":"GameObject.ts","name":null,"original":{"line":41,"column":10},"generated":{"line":22,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":41,"column":10},"generated":{"line":22,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":41,"column":10},"generated":{"line":22,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":41,"column":44},"generated":{"line":22,"column":26}},{"source":"GameObject.ts","name":null,"original":{"line":41,"column":10},"generated":{"line":22,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":44,"column":4},"generated":{"line":23,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":44,"column":9},"generated":{"line":23,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":44,"column":4},"generated":{"line":23,"column":14}},{"source":"GameObject.ts","name":null,"original":{"line":44,"column":17},"generated":{"line":23,"column":17}},{"source":"GameObject.ts","name":null,"original":{"line":44,"column":23},"generated":{"line":23,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":44,"column":24},"generated":{"line":23,"column":24}},{"source":"GameObject.ts","name":null,"original":{"line":44,"column":4},"generated":{"line":23,"column":29}},{"source":"GameObject.ts","name":null,"original":{"line":45,"column":4},"generated":{"line":24,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":45,"column":9},"generated":{"line":24,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":45,"column":4},"generated":{"line":24,"column":15}},{"source":"GameObject.ts","name":null,"original":{"line":45,"column":18},"generated":{"line":24,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":45,"column":24},"generated":{"line":24,"column":24}},{"source":"GameObject.ts","name":null,"original":{"line":45,"column":25},"generated":{"line":24,"column":25}},{"source":"GameObject.ts","name":null,"original":{"line":45,"column":4},"generated":{"line":24,"column":31}},{"source":"GameObject.ts","name":null,"original":{"line":46,"column":4},"generated":{"line":25,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":46,"column":9},"generated":{"line":25,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":46,"column":4},"generated":{"line":25,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":46,"column":21},"generated":{"line":25,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":46,"column":27},"generated":{"line":25,"column":27}},{"source":"GameObject.ts","name":null,"original":{"line":46,"column":28},"generated":{"line":25,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":46,"column":4},"generated":{"line":25,"column":36}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":4},"generated":{"line":26,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":9},"generated":{"line":26,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":4},"generated":{"line":26,"column":19}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":22},"generated":{"line":26,"column":22}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":28},"generated":{"line":26,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":29},"generated":{"line":26,"column":29}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":22},"generated":{"line":26,"column":39}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":43},"generated":{"line":26,"column":43}},{"source":"GameObject.ts","name":null,"original":{"line":47,"column":4},"generated":{"line":26,"column":50}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":4},"generated":{"line":27,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":9},"generated":{"line":27,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":4},"generated":{"line":27,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":21},"generated":{"line":27,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":27},"generated":{"line":27,"column":27}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":28},"generated":{"line":27,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":21},"generated":{"line":27,"column":36}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":40},"generated":{"line":27,"column":40}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":42},"generated":{"line":28,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":42},"generated":{"line":28,"column":6}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":43},"generated":{"line":28,"column":7}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":45},"generated":{"line":28,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":40},"generated":{"line":28,"column":10}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":48},"generated":{"line":29,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":48},"generated":{"line":29,"column":6}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":49},"generated":{"line":29,"column":7}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":51},"generated":{"line":29,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":40},"generated":{"line":30,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":48,"column":4},"generated":{"line":30,"column":5}},{"source":"GameObject.ts","name":null,"original":{"line":49,"column":4},"generated":{"line":31,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":49,"column":9},"generated":{"line":31,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":49,"column":4},"generated":{"line":31,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":49,"column":16},"generated":{"line":31,"column":16}},{"source":"GameObject.ts","name":null,"original":{"line":49,"column":22},"generated":{"line":31,"column":22}},{"source":"GameObject.ts","name":null,"original":{"line":49,"column":23},"generated":{"line":31,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":49,"column":4},"generated":{"line":31,"column":27}},{"source":"GameObject.ts","name":null,"original":{"line":50,"column":4},"generated":{"line":32,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":50,"column":9},"generated":{"line":32,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":50,"column":4},"generated":{"line":32,"column":14}},{"source":"GameObject.ts","name":null,"original":{"line":50,"column":17},"generated":{"line":32,"column":17}},{"source":"GameObject.ts","name":null,"original":{"line":50,"column":17},"generated":{"line":32,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":50,"column":17},"generated":{"line":32,"column":24}},{"source":"GameObject.ts","name":null,"original":{"line":50,"column":17},"generated":{"line":32,"column":26}},{"source":"GameObject.ts","name":null,"original":{"line":50,"column":4},"generated":{"line":32,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":51,"column":3},"generated":{"line":33,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":35,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":35,"column":2}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":35,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":35,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":35,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":6},"generated":{"line":35,"column":24}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":6},"generated":{"line":35,"column":34}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":6},"generated":{"line":35,"column":35}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":35,"column":44}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":6},"generated":{"line":35,"column":46}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":35,"column":52}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":10},"generated":{"line":35,"column":54}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":36,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":36,"column":24}},{"source":"GameObject.ts","name":null,"original":{"line":54,"column":4},"generated":{"line":37,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":54,"column":11},"generated":{"line":37,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":54,"column":16},"generated":{"line":37,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":54,"column":4},"generated":{"line":37,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":55,"column":3},"generated":{"line":38,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":10},"generated":{"line":38,"column":5}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":10},"generated":{"line":39,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":10},"generated":{"line":41,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":53,"column":2},"generated":{"line":41,"column":3}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":2}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":12}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":22}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":34}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":37}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":14},"generated":{"line":43,"column":47}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":48}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":26},"generated":{"line":43,"column":50}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":43,"column":51}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":36},"generated":{"line":43,"column":53}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":4},"generated":{"line":44,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":8},"generated":{"line":44,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":15},"generated":{"line":44,"column":15}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":8},"generated":{"line":44,"column":16}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":21},"generated":{"line":44,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":4},"generated":{"line":44,"column":29}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":31},"generated":{"line":44,"column":31}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":36},"generated":{"line":44,"column":36}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":31},"generated":{"line":44,"column":45}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":46},"generated":{"line":44,"column":46}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":31},"generated":{"line":44,"column":47}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":50},"generated":{"line":44,"column":50}},{"source":"GameObject.ts","name":null,"original":{"line":58,"column":31},"generated":{"line":44,"column":51}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":4},"generated":{"line":45,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":8},"generated":{"line":45,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":15},"generated":{"line":45,"column":15}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":8},"generated":{"line":45,"column":16}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":21},"generated":{"line":45,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":4},"generated":{"line":45,"column":29}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":31},"generated":{"line":45,"column":31}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":36},"generated":{"line":45,"column":36}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":31},"generated":{"line":45,"column":45}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":46},"generated":{"line":45,"column":46}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":31},"generated":{"line":45,"column":47}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":50},"generated":{"line":45,"column":50}},{"source":"GameObject.ts","name":null,"original":{"line":59,"column":31},"generated":{"line":45,"column":51}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":4},"generated":{"line":47,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":8},"generated":{"line":47,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":15},"generated":{"line":47,"column":15}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":8},"generated":{"line":47,"column":16}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":21},"generated":{"line":47,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":8},"generated":{"line":47,"column":29}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":33},"generated":{"line":47,"column":33}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":40},"generated":{"line":47,"column":40}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":33},"generated":{"line":47,"column":41}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":46},"generated":{"line":47,"column":46}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":4},"generated":{"line":47,"column":54}},{"source":"GameObject.ts","name":null,"original":{"line":61,"column":56},"generated":{"line":47,"column":56}},{"source":"GameObject.ts","name":null,"original":{"line":62,"column":6},"generated":{"line":48,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":62,"column":11},"generated":{"line":48,"column":11}},{"source":"GameObject.ts","name":null,"original":{"line":62,"column":6},"generated":{"line":48,"column":26}},{"source":"GameObject.ts","name":null,"original":{"line":62,"column":27},"generated":{"line":48,"column":27}},{"source":"GameObject.ts","name":null,"original":{"line":62,"column":6},"generated":{"line":48,"column":44}},{"source":"GameObject.ts","name":null,"original":{"line":63,"column":5},"generated":{"line":49,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":64,"column":3},"generated":{"line":50,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":57,"column":2},"generated":{"line":50,"column":3}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":2}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":12}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":22}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":34}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":37}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":52,"column":49}},{"source":"GameObject.ts","name":null,"original":{"line":67,"column":4},"generated":{"line":53,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":67,"column":11},"generated":{"line":53,"column":11}},{"source":"GameObject.ts","name":null,"original":{"line":67,"column":16},"generated":{"line":53,"column":16}},{"source":"GameObject.ts","name":null,"original":{"line":67,"column":4},"generated":{"line":53,"column":25}},{"source":"GameObject.ts","name":null,"original":{"line":68,"column":3},"generated":{"line":54,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":66,"column":2},"generated":{"line":54,"column":3}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":9},"generated":{"line":56,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":9},"generated":{"line":56,"column":2}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":9},"generated":{"line":56,"column":12}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":9},"generated":{"line":56,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":9},"generated":{"line":56,"column":22}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":9},"generated":{"line":56,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":9},"generated":{"line":56,"column":38}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":2},"generated":{"line":56,"column":41}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":25},"generated":{"line":56,"column":51}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":2},"generated":{"line":56,"column":55}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":41},"generated":{"line":56,"column":57}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":2},"generated":{"line":57,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":2},"generated":{"line":57,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":2},"generated":{"line":57,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":2},"generated":{"line":57,"column":16}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":2},"generated":{"line":57,"column":20}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":59,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":59,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":59,"column":14}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":59,"column":17}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":59,"column":19}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":15}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":21}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":26}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":35}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":36}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":44}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":61,"column":46}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":59},"generated":{"line":61,"column":50}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":6}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":12}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":15}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":19}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":20}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":32}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":33}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":35}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":43},"generated":{"line":62,"column":36}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":41},"generated":{"line":63,"column":5}},{"source":"GameObject.ts","name":null,"original":{"line":71,"column":4},"generated":{"line":63,"column":6}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":4},"generated":{"line":66,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":10},"generated":{"line":66,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":16},"generated":{"line":66,"column":14}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":19},"generated":{"line":66,"column":17}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":24},"generated":{"line":66,"column":22}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":19},"generated":{"line":66,"column":36}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":39},"generated":{"line":66,"column":37}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":19},"generated":{"line":66,"column":43}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":46},"generated":{"line":66,"column":44}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":47},"generated":{"line":66,"column":54}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":46},"generated":{"line":66,"column":59}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":52},"generated":{"line":66,"column":61}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":57},"generated":{"line":67,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":57},"generated":{"line":67,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":62},"generated":{"line":67,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":63},"generated":{"line":67,"column":19}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":57},"generated":{"line":67,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":72},"generated":{"line":67,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":57},"generated":{"line":67,"column":32}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":76},"generated":{"line":68,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":19},"generated":{"line":68,"column":5}},{"source":"GameObject.ts","name":null,"original":{"line":72,"column":4},"generated":{"line":68,"column":6}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":41},"generated":{"line":68,"column":7}},{"source":"GameObject.ts","name":null,"original":{"line":73,"column":4},"generated":{"line":68,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":4},"generated":{"line":70,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":4},"generated":{"line":70,"column":4}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":10},"generated":{"line":70,"column":10}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":11},"generated":{"line":70,"column":11}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":4},"generated":{"line":70,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":19},"generated":{"line":70,"column":19}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":20},"generated":{"line":70,"column":29}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":19},"generated":{"line":70,"column":34}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":25},"generated":{"line":70,"column":36}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":30},"generated":{"line":71,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":30},"generated":{"line":71,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":35},"generated":{"line":71,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":36},"generated":{"line":71,"column":19}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":30},"generated":{"line":71,"column":27}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":44},"generated":{"line":71,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":30},"generated":{"line":71,"column":33}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":30},"generated":{"line":71,"column":34}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":30},"generated":{"line":71,"column":39}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":35},"generated":{"line":71,"column":41}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":35},"generated":{"line":71,"column":54}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":35},"generated":{"line":71,"column":55}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":45},"generated":{"line":71,"column":56}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":35},"generated":{"line":71,"column":61}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":35},"generated":{"line":71,"column":62}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":54},"generated":{"line":71,"column":64}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":35},"generated":{"line":71,"column":70}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":30},"generated":{"line":71,"column":71}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":30},"generated":{"line":71,"column":72}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":61},"generated":{"line":72,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":74,"column":4},"generated":{"line":72,"column":5}},{"source":"GameObject.ts","name":null,"original":{"line":75,"column":3},"generated":{"line":73,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":70,"column":9},"generated":{"line":73,"column":3}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":9},"generated":{"line":75,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":9},"generated":{"line":75,"column":2}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":9},"generated":{"line":75,"column":12}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":9},"generated":{"line":75,"column":13}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":9},"generated":{"line":75,"column":22}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":9},"generated":{"line":75,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":9},"generated":{"line":75,"column":39}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":2},"generated":{"line":75,"column":42}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":26},"generated":{"line":75,"column":52}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":2},"generated":{"line":75,"column":56}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":44},"generated":{"line":75,"column":58}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":2},"generated":{"line":75,"column":66}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":62},"generated":{"line":75,"column":68}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":4},"generated":{"line":76,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":9},"generated":{"line":76,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":4},"generated":{"line":76,"column":23}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":24},"generated":{"line":76,"column":24}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":4},"generated":{"line":76,"column":28}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":29},"generated":{"line":76,"column":29}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":31},"generated":{"line":77,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":31},"generated":{"line":77,"column":6}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":35},"generated":{"line":77,"column":10}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":35},"generated":{"line":77,"column":12}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":29},"generated":{"line":77,"column":16}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":37},"generated":{"line":78,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":37},"generated":{"line":78,"column":6}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":45},"generated":{"line":78,"column":14}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":45},"generated":{"line":78,"column":16}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":29},"generated":{"line":79,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":78,"column":4},"generated":{"line":79,"column":5}},{"source":"GameObject.ts","name":null,"original":{"line":79,"column":3},"generated":{"line":80,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":77,"column":9},"generated":{"line":80,"column":3}},{"source":"GameObject.ts","name":null,"original":{"line":80,"column":0},"generated":{"line":82,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":80,"column":0},"generated":{"line":82,"column":9}},{"source":"GameObject.ts","name":null,"original":{"line":80,"column":0},"generated":{"line":82,"column":19}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":83,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":83,"column":1}},{"source":"GameObject.ts","name":null,"original":{"line":28,"column":0},"generated":{"line":83,"column":3}},{"source":"GameObject.ts","name":null,"original":{"line":82,"column":0},"generated":{"line":85,"column":0}},{"source":"GameObject.ts","name":null,"original":{"line":82,"column":0},"generated":{"line":85,"column":7}},{"source":"GameObject.ts","name":null,"original":{"line":82,"column":0},"generated":{"line":85,"column":8}},{"source":"GameObject.ts","name":null,"original":{"line":82,"column":0},"generated":{"line":85,"column":15}},{"source":"GameObject.ts","name":null,"original":{"line":82,"column":15},"generated":{"line":85,"column":18}},{"source":"GameObject.ts","name":null,"original":{"line":82,"column":0},"generated":{"line":85,"column":28}}],"sources":{"GameObject.ts":"/* eslint-disable no-underscore-dangle */\nimport { v4 } from \"uuid\";\nimport { ICoords } from \"./Constants\";\n\ntype CanvasImageSource =\n  | HTMLImageElement\n  | SVGImageElement\n  | HTMLVideoElement\n  | HTMLCanvasElement\n  | ImageBitmap\n  | OffscreenCanvas;\n\ninterface IGameObjectConfig {\n  width: number;\n  height: number;\n  background?: string | CanvasImageSource;\n  position?: ICoords;\n  name?: any;\n}\n\ninterface EventListener {\n  type: string;\n  listener: (GameObject, ...params: any[]) => void;\n}\n\ntype EventTypes = \"positionupdated\" | \"draw\" | \"collided\";\n\nclass GameObject {\n  public name: any;\n\n  public width: number;\n\n  public height: number;\n\n  public background: string | CanvasImageSource;\n\n  private _uuid: string;\n\n  private _position: ICoords;\n\n  private eventListeners: EventListener[] = [];\n\n  constructor(config: IGameObjectConfig) {\n    this.width = config.width;\n    this.height = config.height;\n    this._position = config.position;\n    this.background = config.background || \"black\";\n    this._position = config.position || { x: 0, y: 0 };\n    this.name = config.name;\n    this._uuid = v4();\n  }\n\n  get uuid() {\n    return this._uuid;\n  }\n\n  setPosition(x?: number, y?: number) {\n    if (typeof x === \"number\") this._position.x = x;\n    if (typeof y === \"number\") this._position.y = y;\n\n    if (typeof x === \"number\" || typeof y === \"number\") {\n      this.triggerListener(\"positionupdated\");\n    }\n  }\n\n  getPosition() {\n    return this._position;\n  }\n\n  public triggerListener(type: EventTypes, ...params: any[]) {\n    // get listeners\n    const events = this.eventListeners.filter((event) => event.type === type);\n    // run listeners\n    events.forEach((event) => event.listener(this, ...params));\n  }\n\n  public addEventListener(type: EventTypes, listener: Listener) {\n    this.eventListeners.push({ type, listener });\n  }\n}\n\nexport default GameObject;\n"},"lineCount":null}},"error":null,"hash":"7c88f3140919dd0670db9160f38dce35","cacheData":{"env":{}}}
+{
+  "id": "GameObject.ts",
+  "dependencies": [
+    {
+      "name": "/Users/mikareich/Documents/GitHub/space-defender/package.json",
+      "includedInParent": true,
+      "mtime": 1614698243734
+    },
+    {
+      "name": "uuid",
+      "loc": { "line": 9, "column": 21 },
+      "parent": "/Users/mikareich/Documents/GitHub/space-defender/src/GameObject.ts",
+      "resolved": "/Users/mikareich/Documents/GitHub/space-defender/node_modules/uuid/dist/esm-browser/index.js"
+    }
+  ],
+  "generated": {
+    "js": "\"use strict\";\n\nvar __spreadArray = this && this.__spreadArray || function (to, from) {\n  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) {\n    to[j] = from[i];\n  }\n\n  return to;\n};\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n/* eslint-disable no-underscore-dangle */\n\nvar uuid_1 = require(\"uuid\");\n\nvar GameObject =\n/** @class */\nfunction () {\n  function GameObject(config) {\n    this.eventListeners = [];\n    this.width = config.width;\n    this.height = config.height;\n    this._position = config.position;\n    this.background = config.background || \"black\";\n    this._position = config.position || {\n      x: 0,\n      y: 0\n    };\n    this.name = config.name;\n    this._uuid = uuid_1.v4();\n  }\n\n  Object.defineProperty(GameObject.prototype, \"uuid\", {\n    get: function get() {\n      return this._uuid;\n    },\n    enumerable: false,\n    configurable: true\n  });\n\n  GameObject.prototype.setPosition = function (x, y) {\n    if (typeof x === \"number\") this._position.x = x;\n    if (typeof y === \"number\") this._position.y = y;\n\n    if (typeof x === \"number\" || typeof y === \"number\") {\n      this.triggerListener(\"newposition\");\n    }\n  };\n\n  GameObject.prototype.getPosition = function () {\n    return this._position;\n  };\n\n  GameObject.prototype.triggerListener = function (type) {\n    var _this = this;\n\n    var params = [];\n\n    for (var _i = 1; _i < arguments.length; _i++) {\n      params[_i - 1] = arguments[_i];\n    } // get listeners\n\n\n    var events = this.eventListeners.filter(function (event) {\n      return event.type === type;\n    }); // run listeners\n\n    events.forEach(function (event) {\n      return event.listener.apply(event, __spreadArray([_this], params));\n    });\n  };\n\n  GameObject.prototype.addEventListener = function (type, listener) {\n    this.eventListeners.push({\n      type: type,\n      listener: listener\n    });\n  };\n\n  return GameObject;\n}();\n\nexports.default = GameObject;"
+  },
+  "sourceMaps": {
+    "js": {
+      "mappings": [
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 1, "column": 0 },
+          "generated": { "line": 14, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 2, "column": 0 },
+          "generated": { "line": 16, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 2, "column": 0 },
+          "generated": { "line": 16, "column": 4 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 2, "column": 0 },
+          "generated": { "line": 16, "column": 10 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 2, "column": 0 },
+          "generated": { "line": 16, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 2, "column": 0 },
+          "generated": { "line": 16, "column": 20 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 2, "column": 0 },
+          "generated": { "line": 16, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 2, "column": 0 },
+          "generated": { "line": 16, "column": 27 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 2, "column": 0 },
+          "generated": { "line": 16, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 18, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 18, "column": 4 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 18, "column": 14 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 19, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 20, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 20, "column": 12 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 43, "column": 2 },
+          "generated": { "line": 21, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 43, "column": 2 },
+          "generated": { "line": 21, "column": 11 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 43, "column": 2 },
+          "generated": { "line": 21, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 43, "column": 14 },
+          "generated": { "line": 21, "column": 22 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 43, "column": 2 },
+          "generated": { "line": 21, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 43, "column": 39 },
+          "generated": { "line": 21, "column": 30 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 41, "column": 10 },
+          "generated": { "line": 22, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 41, "column": 10 },
+          "generated": { "line": 22, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 41, "column": 10 },
+          "generated": { "line": 22, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 41, "column": 44 },
+          "generated": { "line": 22, "column": 26 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 41, "column": 10 },
+          "generated": { "line": 22, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 44, "column": 4 },
+          "generated": { "line": 23, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 44, "column": 9 },
+          "generated": { "line": 23, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 44, "column": 4 },
+          "generated": { "line": 23, "column": 14 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 44, "column": 17 },
+          "generated": { "line": 23, "column": 17 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 44, "column": 23 },
+          "generated": { "line": 23, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 44, "column": 24 },
+          "generated": { "line": 23, "column": 24 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 44, "column": 4 },
+          "generated": { "line": 23, "column": 29 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 45, "column": 4 },
+          "generated": { "line": 24, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 45, "column": 9 },
+          "generated": { "line": 24, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 45, "column": 4 },
+          "generated": { "line": 24, "column": 15 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 45, "column": 18 },
+          "generated": { "line": 24, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 45, "column": 24 },
+          "generated": { "line": 24, "column": 24 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 45, "column": 25 },
+          "generated": { "line": 24, "column": 25 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 45, "column": 4 },
+          "generated": { "line": 24, "column": 31 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 46, "column": 4 },
+          "generated": { "line": 25, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 46, "column": 9 },
+          "generated": { "line": 25, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 46, "column": 4 },
+          "generated": { "line": 25, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 46, "column": 21 },
+          "generated": { "line": 25, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 46, "column": 27 },
+          "generated": { "line": 25, "column": 27 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 46, "column": 28 },
+          "generated": { "line": 25, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 46, "column": 4 },
+          "generated": { "line": 25, "column": 36 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 4 },
+          "generated": { "line": 26, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 9 },
+          "generated": { "line": 26, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 4 },
+          "generated": { "line": 26, "column": 19 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 22 },
+          "generated": { "line": 26, "column": 22 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 28 },
+          "generated": { "line": 26, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 29 },
+          "generated": { "line": 26, "column": 29 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 22 },
+          "generated": { "line": 26, "column": 39 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 43 },
+          "generated": { "line": 26, "column": 43 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 47, "column": 4 },
+          "generated": { "line": 26, "column": 50 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 4 },
+          "generated": { "line": 27, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 9 },
+          "generated": { "line": 27, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 4 },
+          "generated": { "line": 27, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 21 },
+          "generated": { "line": 27, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 27 },
+          "generated": { "line": 27, "column": 27 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 28 },
+          "generated": { "line": 27, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 21 },
+          "generated": { "line": 27, "column": 36 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 40 },
+          "generated": { "line": 27, "column": 40 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 42 },
+          "generated": { "line": 28, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 42 },
+          "generated": { "line": 28, "column": 6 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 43 },
+          "generated": { "line": 28, "column": 7 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 45 },
+          "generated": { "line": 28, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 40 },
+          "generated": { "line": 28, "column": 10 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 48 },
+          "generated": { "line": 29, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 48 },
+          "generated": { "line": 29, "column": 6 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 49 },
+          "generated": { "line": 29, "column": 7 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 51 },
+          "generated": { "line": 29, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 40 },
+          "generated": { "line": 30, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 48, "column": 4 },
+          "generated": { "line": 30, "column": 5 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 49, "column": 4 },
+          "generated": { "line": 31, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 49, "column": 9 },
+          "generated": { "line": 31, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 49, "column": 4 },
+          "generated": { "line": 31, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 49, "column": 16 },
+          "generated": { "line": 31, "column": 16 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 49, "column": 22 },
+          "generated": { "line": 31, "column": 22 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 49, "column": 23 },
+          "generated": { "line": 31, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 49, "column": 4 },
+          "generated": { "line": 31, "column": 27 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 50, "column": 4 },
+          "generated": { "line": 32, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 50, "column": 9 },
+          "generated": { "line": 32, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 50, "column": 4 },
+          "generated": { "line": 32, "column": 14 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 50, "column": 17 },
+          "generated": { "line": 32, "column": 17 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 50, "column": 17 },
+          "generated": { "line": 32, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 50, "column": 17 },
+          "generated": { "line": 32, "column": 24 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 50, "column": 17 },
+          "generated": { "line": 32, "column": 26 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 50, "column": 4 },
+          "generated": { "line": 32, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 51, "column": 3 },
+          "generated": { "line": 33, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 35, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 35, "column": 2 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 35, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 35, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 35, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 6 },
+          "generated": { "line": 35, "column": 24 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 6 },
+          "generated": { "line": 35, "column": 34 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 6 },
+          "generated": { "line": 35, "column": 35 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 35, "column": 44 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 6 },
+          "generated": { "line": 35, "column": 46 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 35, "column": 52 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 10 },
+          "generated": { "line": 35, "column": 54 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 36, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 36, "column": 24 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 54, "column": 4 },
+          "generated": { "line": 37, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 54, "column": 11 },
+          "generated": { "line": 37, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 54, "column": 16 },
+          "generated": { "line": 37, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 54, "column": 4 },
+          "generated": { "line": 37, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 55, "column": 3 },
+          "generated": { "line": 38, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 10 },
+          "generated": { "line": 38, "column": 5 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 10 },
+          "generated": { "line": 39, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 10 },
+          "generated": { "line": 41, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 53, "column": 2 },
+          "generated": { "line": 41, "column": 3 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 2 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 12 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 22 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 34 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 37 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 14 },
+          "generated": { "line": 43, "column": 47 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 48 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 26 },
+          "generated": { "line": 43, "column": 50 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 43, "column": 51 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 36 },
+          "generated": { "line": 43, "column": 53 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 4 },
+          "generated": { "line": 44, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 8 },
+          "generated": { "line": 44, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 15 },
+          "generated": { "line": 44, "column": 15 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 8 },
+          "generated": { "line": 44, "column": 16 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 21 },
+          "generated": { "line": 44, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 4 },
+          "generated": { "line": 44, "column": 29 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 31 },
+          "generated": { "line": 44, "column": 31 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 36 },
+          "generated": { "line": 44, "column": 36 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 31 },
+          "generated": { "line": 44, "column": 45 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 46 },
+          "generated": { "line": 44, "column": 46 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 31 },
+          "generated": { "line": 44, "column": 47 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 50 },
+          "generated": { "line": 44, "column": 50 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 58, "column": 31 },
+          "generated": { "line": 44, "column": 51 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 4 },
+          "generated": { "line": 45, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 8 },
+          "generated": { "line": 45, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 15 },
+          "generated": { "line": 45, "column": 15 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 8 },
+          "generated": { "line": 45, "column": 16 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 21 },
+          "generated": { "line": 45, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 4 },
+          "generated": { "line": 45, "column": 29 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 31 },
+          "generated": { "line": 45, "column": 31 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 36 },
+          "generated": { "line": 45, "column": 36 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 31 },
+          "generated": { "line": 45, "column": 45 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 46 },
+          "generated": { "line": 45, "column": 46 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 31 },
+          "generated": { "line": 45, "column": 47 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 50 },
+          "generated": { "line": 45, "column": 50 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 59, "column": 31 },
+          "generated": { "line": 45, "column": 51 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 4 },
+          "generated": { "line": 47, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 8 },
+          "generated": { "line": 47, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 15 },
+          "generated": { "line": 47, "column": 15 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 8 },
+          "generated": { "line": 47, "column": 16 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 21 },
+          "generated": { "line": 47, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 8 },
+          "generated": { "line": 47, "column": 29 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 33 },
+          "generated": { "line": 47, "column": 33 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 40 },
+          "generated": { "line": 47, "column": 40 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 33 },
+          "generated": { "line": 47, "column": 41 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 46 },
+          "generated": { "line": 47, "column": 46 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 4 },
+          "generated": { "line": 47, "column": 54 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 61, "column": 56 },
+          "generated": { "line": 47, "column": 56 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 62, "column": 6 },
+          "generated": { "line": 48, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 62, "column": 11 },
+          "generated": { "line": 48, "column": 11 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 62, "column": 6 },
+          "generated": { "line": 48, "column": 26 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 62, "column": 27 },
+          "generated": { "line": 48, "column": 27 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 62, "column": 6 },
+          "generated": { "line": 48, "column": 44 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 63, "column": 5 },
+          "generated": { "line": 49, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 64, "column": 3 },
+          "generated": { "line": 50, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 57, "column": 2 },
+          "generated": { "line": 50, "column": 3 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 2 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 12 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 22 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 34 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 37 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 52, "column": 49 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 67, "column": 4 },
+          "generated": { "line": 53, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 67, "column": 11 },
+          "generated": { "line": 53, "column": 11 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 67, "column": 16 },
+          "generated": { "line": 53, "column": 16 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 67, "column": 4 },
+          "generated": { "line": 53, "column": 25 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 68, "column": 3 },
+          "generated": { "line": 54, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 66, "column": 2 },
+          "generated": { "line": 54, "column": 3 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 9 },
+          "generated": { "line": 56, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 9 },
+          "generated": { "line": 56, "column": 2 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 9 },
+          "generated": { "line": 56, "column": 12 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 9 },
+          "generated": { "line": 56, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 9 },
+          "generated": { "line": 56, "column": 22 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 9 },
+          "generated": { "line": 56, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 9 },
+          "generated": { "line": 56, "column": 38 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 2 },
+          "generated": { "line": 56, "column": 41 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 25 },
+          "generated": { "line": 56, "column": 51 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 2 },
+          "generated": { "line": 56, "column": 55 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 41 },
+          "generated": { "line": 56, "column": 57 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 2 },
+          "generated": { "line": 57, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 2 },
+          "generated": { "line": 57, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 2 },
+          "generated": { "line": 57, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 2 },
+          "generated": { "line": 57, "column": 16 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 2 },
+          "generated": { "line": 57, "column": 20 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 59, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 59, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 59, "column": 14 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 59, "column": 17 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 59, "column": 19 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 15 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 21 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 26 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 35 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 36 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 44 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 61, "column": 46 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 59 },
+          "generated": { "line": 61, "column": 50 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 6 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 12 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 15 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 19 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 20 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 32 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 33 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 35 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 43 },
+          "generated": { "line": 62, "column": 36 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 41 },
+          "generated": { "line": 63, "column": 5 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 71, "column": 4 },
+          "generated": { "line": 63, "column": 6 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 4 },
+          "generated": { "line": 66, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 10 },
+          "generated": { "line": 66, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 16 },
+          "generated": { "line": 66, "column": 14 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 19 },
+          "generated": { "line": 66, "column": 17 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 24 },
+          "generated": { "line": 66, "column": 22 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 19 },
+          "generated": { "line": 66, "column": 36 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 39 },
+          "generated": { "line": 66, "column": 37 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 19 },
+          "generated": { "line": 66, "column": 43 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 46 },
+          "generated": { "line": 66, "column": 44 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 47 },
+          "generated": { "line": 66, "column": 54 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 46 },
+          "generated": { "line": 66, "column": 59 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 52 },
+          "generated": { "line": 66, "column": 61 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 57 },
+          "generated": { "line": 67, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 57 },
+          "generated": { "line": 67, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 62 },
+          "generated": { "line": 67, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 63 },
+          "generated": { "line": 67, "column": 19 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 57 },
+          "generated": { "line": 67, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 72 },
+          "generated": { "line": 67, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 57 },
+          "generated": { "line": 67, "column": 32 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 76 },
+          "generated": { "line": 68, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 19 },
+          "generated": { "line": 68, "column": 5 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 72, "column": 4 },
+          "generated": { "line": 68, "column": 6 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 41 },
+          "generated": { "line": 68, "column": 7 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 73, "column": 4 },
+          "generated": { "line": 68, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 4 },
+          "generated": { "line": 70, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 4 },
+          "generated": { "line": 70, "column": 4 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 10 },
+          "generated": { "line": 70, "column": 10 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 11 },
+          "generated": { "line": 70, "column": 11 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 4 },
+          "generated": { "line": 70, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 19 },
+          "generated": { "line": 70, "column": 19 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 20 },
+          "generated": { "line": 70, "column": 29 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 19 },
+          "generated": { "line": 70, "column": 34 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 25 },
+          "generated": { "line": 70, "column": 36 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 30 },
+          "generated": { "line": 71, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 30 },
+          "generated": { "line": 71, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 35 },
+          "generated": { "line": 71, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 36 },
+          "generated": { "line": 71, "column": 19 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 30 },
+          "generated": { "line": 71, "column": 27 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 44 },
+          "generated": { "line": 71, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 30 },
+          "generated": { "line": 71, "column": 33 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 30 },
+          "generated": { "line": 71, "column": 34 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 30 },
+          "generated": { "line": 71, "column": 39 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 35 },
+          "generated": { "line": 71, "column": 41 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 35 },
+          "generated": { "line": 71, "column": 54 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 35 },
+          "generated": { "line": 71, "column": 55 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 45 },
+          "generated": { "line": 71, "column": 56 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 35 },
+          "generated": { "line": 71, "column": 61 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 35 },
+          "generated": { "line": 71, "column": 62 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 54 },
+          "generated": { "line": 71, "column": 64 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 35 },
+          "generated": { "line": 71, "column": 70 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 30 },
+          "generated": { "line": 71, "column": 71 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 30 },
+          "generated": { "line": 71, "column": 72 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 61 },
+          "generated": { "line": 72, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 74, "column": 4 },
+          "generated": { "line": 72, "column": 5 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 75, "column": 3 },
+          "generated": { "line": 73, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 70, "column": 9 },
+          "generated": { "line": 73, "column": 3 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 9 },
+          "generated": { "line": 75, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 9 },
+          "generated": { "line": 75, "column": 2 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 9 },
+          "generated": { "line": 75, "column": 12 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 9 },
+          "generated": { "line": 75, "column": 13 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 9 },
+          "generated": { "line": 75, "column": 22 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 9 },
+          "generated": { "line": 75, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 9 },
+          "generated": { "line": 75, "column": 39 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 2 },
+          "generated": { "line": 75, "column": 42 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 26 },
+          "generated": { "line": 75, "column": 52 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 2 },
+          "generated": { "line": 75, "column": 56 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 44 },
+          "generated": { "line": 75, "column": 58 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 2 },
+          "generated": { "line": 75, "column": 66 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 62 },
+          "generated": { "line": 75, "column": 68 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 4 },
+          "generated": { "line": 76, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 9 },
+          "generated": { "line": 76, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 4 },
+          "generated": { "line": 76, "column": 23 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 24 },
+          "generated": { "line": 76, "column": 24 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 4 },
+          "generated": { "line": 76, "column": 28 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 29 },
+          "generated": { "line": 76, "column": 29 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 31 },
+          "generated": { "line": 77, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 31 },
+          "generated": { "line": 77, "column": 6 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 35 },
+          "generated": { "line": 77, "column": 10 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 35 },
+          "generated": { "line": 77, "column": 12 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 29 },
+          "generated": { "line": 77, "column": 16 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 37 },
+          "generated": { "line": 78, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 37 },
+          "generated": { "line": 78, "column": 6 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 45 },
+          "generated": { "line": 78, "column": 14 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 45 },
+          "generated": { "line": 78, "column": 16 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 29 },
+          "generated": { "line": 79, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 78, "column": 4 },
+          "generated": { "line": 79, "column": 5 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 79, "column": 3 },
+          "generated": { "line": 80, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 77, "column": 9 },
+          "generated": { "line": 80, "column": 3 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 80, "column": 0 },
+          "generated": { "line": 82, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 80, "column": 0 },
+          "generated": { "line": 82, "column": 9 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 80, "column": 0 },
+          "generated": { "line": 82, "column": 19 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 83, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 83, "column": 1 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 28, "column": 0 },
+          "generated": { "line": 83, "column": 3 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 82, "column": 0 },
+          "generated": { "line": 85, "column": 0 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 82, "column": 0 },
+          "generated": { "line": 85, "column": 7 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 82, "column": 0 },
+          "generated": { "line": 85, "column": 8 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 82, "column": 0 },
+          "generated": { "line": 85, "column": 15 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 82, "column": 15 },
+          "generated": { "line": 85, "column": 18 }
+        },
+        {
+          "source": "GameObject.ts",
+          "name": null,
+          "original": { "line": 82, "column": 0 },
+          "generated": { "line": 85, "column": 28 }
+        }
+      ],
+      "sources": {
+        "GameObject.ts": "/* eslint-disable no-underscore-dangle */\nimport { v4 } from \"uuid\";\nimport { ICoords } from \"./Constants\";\n\ntype CanvasImageSource =\n  | HTMLImageElement\n  | SVGImageElement\n  | HTMLVideoElement\n  | HTMLCanvasElement\n  | ImageBitmap\n  | OffscreenCanvas;\n\ninterface IGameObjectConfig {\n  width: number;\n  height: number;\n  background?: string | CanvasImageSource;\n  position?: ICoords;\n  name?: any;\n}\n\ninterface EventListener {\n  type: string;\n  listener: (GameObject, ...params: any[]) => void;\n}\n\ntype EventTypes = \"newposition\" | \"draw\" | \"collision\";\n\nclass GameObject {\n  public name: any;\n\n  public width: number;\n\n  public height: number;\n\n  public background: string | CanvasImageSource;\n\n  private _uuid: string;\n\n  private _position: ICoords;\n\n  private eventListeners: EventListener[] = [];\n\n  constructor(config: IGameObjectConfig) {\n    this.width = config.width;\n    this.height = config.height;\n    this._position = config.position;\n    this.background = config.background || \"black\";\n    this._position = config.position || { x: 0, y: 0 };\n    this.name = config.name;\n    this._uuid = v4();\n  }\n\n  get uuid() {\n    return this._uuid;\n  }\n\n  setPosition(x?: number, y?: number) {\n    if (typeof x === \"number\") this._position.x = x;\n    if (typeof y === \"number\") this._position.y = y;\n\n    if (typeof x === \"number\" || typeof y === \"number\") {\n      this.triggerListener(\"newposition\");\n    }\n  }\n\n  getPosition() {\n    return this._position;\n  }\n\n  public triggerListener(type: EventTypes, ...params: any[]) {\n    // get listeners\n    const events = this.eventListeners.filter((event) => event.type === type);\n    // run listeners\n    events.forEach((event) => event.listener(this, ...params));\n  }\n\n  public addEventListener(type: EventTypes, listener: Listener) {\n    this.eventListeners.push({ type, listener });\n  }\n}\n\nexport default GameObject;\n"
+      },
+      "lineCount": null
+    }
+  },
+  "error": null,
+  "hash": "7c88f3140919dd0670db9160f38dce35",
+  "cacheData": { "env": {} }
+}

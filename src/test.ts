@@ -1,6 +1,5 @@
 import CollisionDetector from "./CollisionDetector";
 import Game from "./Game";
-import GameContext from "./Game";
 import GameObject from "./GameObject";
 
 const WIDTH = 800;
@@ -27,13 +26,9 @@ const object2 = new GameObject({
   background: "red",
 });
 
-const game = new GameContext(ctx, WIDTH, HEIGHT);
+const game = new Game(ctx, WIDTH, HEIGHT);
 
 game.addGameObjects(object1, object2);
-
-const collisionDetector = new CollisionDetector(game.getGameObjects());
-
-game.expr;
 
 const updater = () => {
   const { x, y } = object2.getPosition();

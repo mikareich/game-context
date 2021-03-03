@@ -49,5 +49,5 @@ The GameObject offers to listen for certain events. When an event is triggered, 
 
 ### Events
 
-- `positionupdated`
+- `newposition`
 - `draw`
