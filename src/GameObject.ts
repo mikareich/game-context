@@ -16,7 +16,7 @@ interface IGameObjectConfig {
   height: number;
   background?: string | CanvasImageSource;
   position?: ICoords;
-  name?: any;
+  meta?: object;
 }
 
 type EventTypes = "newposition" | "draw" | "collision";
@@ -30,6 +30,8 @@ class GameObject extends EventSystem<EventTypes> {
 
   public background: string | CanvasImageSource;
 
+  public meta: object = {};
+
   private _uuid: string;
 
   private _position: ICoords;
@@ -42,11 +44,10 @@ class GameObject extends EventSystem<EventTypes> {
     super();
     this.width = config.width;
     this.height = config.height;
-    this._position = config.position;
     this.background = config.background || "black";
-    this._position = config.position || { x: 0, y: 0 };
-    this.name = config.name;
+    this.meta = config.meta;
     this._uuid = v4();
+    this._position = config.position || { x: 0, y: 0 };
   }
 
   /**

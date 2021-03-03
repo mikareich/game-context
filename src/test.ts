@@ -1,4 +1,3 @@
-import CollisionDetector from "./CollisionDetector";
 import Game from "./Game";
 import GameObject from "./GameObject";
 
@@ -16,14 +15,18 @@ const configObject = {
 };
 const object1 = new GameObject({
   ...configObject,
-  name: "Object1",
+  meta: {
+    name: "hey",
+  },
 });
 const object2 = new GameObject({
   width: 100,
   height: 100,
   position: { x: 200, y: 0 },
-  name: "Object2",
   background: "red",
+  meta: {
+    name: "ho",
+  },
 });
 
 const game = new Game(ctx, WIDTH, HEIGHT);

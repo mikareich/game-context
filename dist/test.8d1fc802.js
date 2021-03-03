@@ -1368,16 +1368,16 @@ function (_super) {
   function GameObject(config) {
     var _this = _super.call(this) || this;
 
+    _this.meta = {};
     _this.width = config.width;
     _this.height = config.height;
-    _this._position = config.position;
     _this.background = config.background || "black";
+    _this.meta = config.meta;
+    _this._uuid = uuid_1.v4();
     _this._position = config.position || {
       x: 0,
       y: 0
     };
-    _this.name = config.name;
-    _this._uuid = uuid_1.v4();
     return _this;
   }
 
@@ -1463,7 +1463,9 @@ var configObject = {
   height: 100
 };
 var object1 = new GameObject_1.default(__assign(__assign({}, configObject), {
-  name: "Object1"
+  meta: {
+    name: "hey"
+  }
 }));
 var object2 = new GameObject_1.default({
   width: 100,
@@ -1472,8 +1474,10 @@ var object2 = new GameObject_1.default({
     x: 200,
     y: 0
   },
-  name: "Object2",
-  background: "red"
+  background: "red",
+  meta: {
+    name: "ho"
+  }
 });
 var game = new Game_1.default(ctx, WIDTH, HEIGHT);
 game.addGameObjects(object1, object2);
