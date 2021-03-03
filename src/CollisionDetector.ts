@@ -5,7 +5,7 @@ type EventTypes = "collisiondetected";
 
 class CollisionDetector extends EventSystem<EventTypes> {
   /**
-   *  Examines the position of the objects for collision.
+   * Checks whether two game objects have collided.
    * @param object1 First Object
    * @param object2 Second Object
    * @returns Returns true whether objects have collided
@@ -66,33 +66,41 @@ class CollisionDetector extends EventSystem<EventTypes> {
     });
   }
 
+  /**
+   * Adds game objects to the Collsion Detector that are to be controlled.
+   * @param gameObjects The game objects to add.
+   */
   addObjects(...gameObjects: GameObject[]) {
     gameObjects.forEach((gameObject) => {
-    this.objects.push(gameObject);
-    this.objectUpdated(gameObject);
-    gameObject.on("positionupdated", () => {
+      this.objects.push(gameObject);
       this.objectUpdated(gameObject);
-    });
+      gameObject.on("positionupdated", () => {
+        this.objectUpdated(gameObject);
+      });
     });
   }
 
-  private objectUpdated(object: GameObject) {
+  /**
+   * Checks whether game object has collided with other game objects.
+   * @param gameObject Game object that has changed
+   */
+  private objectUpdated(gameObject: GameObject) {
     // compare object with all other objects
-    const collidedObjects = this.objects
+    const collidedGameObjects = this.objects
       .filter(
         (compareObject) =>
-          object.uuid !== compareObject.uuid &&
-          CollisionDetector.hasCollided(object, compareObject)
+          gameObject.uuid !== compareObject.uuid &&
+          CollisionDetector.hasCollided(gameObject, compareObject)
       )
-      .map((compareObject) => [object, compareObject]);
+      .map((compareObject) => [gameObject, compareObject]);
 
     // trigger event-listeners
-    if (collidedObjects.length > 0) {
-      object.triggerEvent("collided", collidedObjects);
-      collidedObjects.forEach(([, collidedCompareObject]) =>
-        collidedCompareObject.triggerEvent("collided", object)
+    if (collidedGameObjects.length > 0) {
+      gameObject.triggerEvent("collided", collidedGameObjects);
+      collidedGameObjects.forEach(([, collidedCompareObject]) =>
+        collidedCompareObject.triggerEvent("collided", gameObject)
       );
-      this.triggerEvent("collisiondetected", collidedObjects);
+      this.triggerEvent("collisiondetected", collidedGameObjects);
     }
   }
 }

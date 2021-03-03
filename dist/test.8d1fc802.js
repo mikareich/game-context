@@ -230,7 +230,7 @@ function (_super) {
     return _this;
   }
   /**
-   *  Examines the position of the objects for collision.
+   * Checks whether two game objects have collided.
    * @param object1 First Object
    * @param object2 Second Object
    * @returns Returns true whether objects have collided
@@ -272,32 +272,52 @@ function (_super) {
     var verticalCondition = c1 <= a2 && a2 <= a1 || c1 <= c2 && c2 <= a1;
     return horizontalCondition && verticalCondition;
   };
+  /**
+   * Adds game objects to the Collsion Detector that are to be controlled.
+   * @param gameObjects The game objects to add.
+   */
 
-  CollisionDetector.prototype.addObject = function (gameObject) {
+
+  CollisionDetector.prototype.addObjects = function () {
     var _this = this;
 
-    this.objects.push(gameObject);
-    this.objectUpdated(gameObject);
-    gameObject.on("positionupdated", function () {
+    var gameObjects = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      gameObjects[_i] = arguments[_i];
+    }
+
+    gameObjects.forEach(function (gameObject) {
+      _this.objects.push(gameObject);
+
       _this.objectUpdated(gameObject);
+
+      gameObject.on("positionupdated", function () {
+        _this.objectUpdated(gameObject);
+      });
     });
   };
+  /**
+   * Checks whether game object has collided with other game objects.
+   * @param gameObject Game object that has changed
+   */
 
-  CollisionDetector.prototype.objectUpdated = function (object) {
+
+  CollisionDetector.prototype.objectUpdated = function (gameObject) {
     // compare object with all other objects
-    var collidedObjects = this.objects.filter(function (compareObject) {
-      return object.uuid !== compareObject.uuid && CollisionDetector.hasCollided(object, compareObject);
+    var collidedGameObjects = this.objects.filter(function (compareObject) {
+      return gameObject.uuid !== compareObject.uuid && CollisionDetector.hasCollided(gameObject, compareObject);
     }).map(function (compareObject) {
-      return [object, compareObject];
+      return [gameObject, compareObject];
     }); // trigger event-listeners
 
-    if (collidedObjects.length > 0) {
-      object.triggerEvent("collided", collidedObjects);
-      collidedObjects.forEach(function (_a) {
+    if (collidedGameObjects.length > 0) {
+      gameObject.triggerEvent("collided", collidedGameObjects);
+      collidedGameObjects.forEach(function (_a) {
         var collidedCompareObject = _a[1];
-        return collidedCompareObject.triggerEvent("collided", object);
+        return collidedCompareObject.triggerEvent("collided", gameObject);
       });
-      this.triggerEvent("collisiondetected", collidedObjects);
+      this.triggerEvent("collisiondetected", collidedGameObjects);
     }
   };
 
