@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 type EventListener = (...params: any[]) => void;
 interface IEventListeners<EventType> {
   type: EventType;
