@@ -45,7 +45,7 @@ class GameObject extends EventSystem<EventTypes> {
     this.width = config.width;
     this.height = config.height;
     this.background = config.background || "black";
-    this.meta = config.meta;
+    this.meta = config.meta || {};
     this._uuid = v4();
     this._position = config.position || { x: 0, y: 0 };
   }

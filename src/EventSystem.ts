@@ -6,8 +6,6 @@ interface IEventListeners<EventType> {
 class EventSystem<EventType> {
   private registeredEventListeners: IEventListeners<EventType>[] = [];
 
-  public eventType: string;
-
   /**
    * Add an event listener for specific events.
    * @param type Type of event to be listen to.

@@ -19,7 +19,7 @@ class Game {
 
   public height: number;
 
-  private collisionDetector: CollisionDetector | null;
+  private collisionDetector: CollisionDetector | null = null;
 
   /**
    *
