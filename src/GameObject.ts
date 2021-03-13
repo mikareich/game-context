@@ -30,7 +30,7 @@ class GameObject extends EventSystem<EventTypes> {
 
   public background: string | CanvasImageSource;
 
-  public meta: object = {};
+  public meta: { [key: string]: any } = {};
 
   private _uuid: string;
 
